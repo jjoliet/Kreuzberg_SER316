@@ -23,3 +23,5 @@ Enjoy!
 
 
 Dr. Mehlhase
+
+This readme is very comprehensive and answered some questions that I have had about this project from the start, thank you! - tstockt2
