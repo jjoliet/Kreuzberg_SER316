@@ -29,3 +29,8 @@ This readme is very comprehensive and answered some questions that I have had ab
 This readme file is very helpful in answering some questions regarding the project. Thanks! - ggaz1 
 
 Very nice to have some diagrams to help sort to start. - admeyer7
+
+This readme has some good information.
+When opening memoranda in eclipse try to do a 
+File->"Open Projects from file system" instead of importing from the package explorer.
+I find that a plain import doesn't work. - frankleveque(fleveque)
