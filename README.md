@@ -30,6 +30,8 @@ This readme file is very helpful in answering some questions regarding the proje
 
 Very nice to have some diagrams to help sort to start. - admeyer7
 
+Testing commit+Push to git -jjoliet
+
 This readme has some good information.
 When opening memoranda in eclipse try to do a 
 File->"Open Projects from file system" instead of importing from the package explorer.
