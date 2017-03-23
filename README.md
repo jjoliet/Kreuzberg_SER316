@@ -34,3 +34,5 @@ This readme has some good information.
 When opening memoranda in eclipse try to do a 
 File->"Open Projects from file system" instead of importing from the package explorer.
 I find that a plain import doesn't work. - frankleveque(fleveque)
+
+Very helpful readme.  Followed the directions listed here and in the video, Memoranda worked with no issues. - akijowsk
