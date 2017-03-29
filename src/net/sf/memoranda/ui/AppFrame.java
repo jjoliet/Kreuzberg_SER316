@@ -646,16 +646,6 @@ public class AppFrame extends JFrame {
     
     //File | Exit action performed
     public void doExit() {
-        if (Configuration.get("ASK_ON_EXIT").equals("yes")) {
-                        Dimension frmSize = this.getSize();
-                        Point loc = this.getLocation();
-                        
-                        ExitConfirmationDialog dlg = new ExitConfirmationDialog(this,Local.getString("Exit"));
-                        dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x, (frmSize.height - dlg.getSize().height) / 2 + loc.y);
-                        dlg.setVisible(true);
-                        if(dlg.CANCELLED) return;
-        }
-
         Context.put("FRAME_WIDTH", new Integer(this.getWidth()));
         Context.put("FRAME_HEIGHT", new Integer(this.getHeight()));
         Context.put("FRAME_XPOS", new Integer(this.getLocation().x));
@@ -682,10 +672,7 @@ public class AppFrame extends JFrame {
 
     protected void processWindowEvent(WindowEvent e) {
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-            if (Configuration.get("ON_CLOSE").equals("exit"))
-                doExit();
-            else
-                doMinimize();
+            doExit();
         }
         else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
             super.processWindowEvent(new WindowEvent(this,
