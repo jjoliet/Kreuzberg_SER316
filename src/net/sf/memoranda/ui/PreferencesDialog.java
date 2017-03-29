@@ -31,16 +31,6 @@ public class PreferencesDialog extends JDialog {
 
 	JRadioButton minHideRB = new JRadioButton();
 
-	ButtonGroup closeGroup = new ButtonGroup();
-
-	JLabel jLabel2 = new JLabel();
-
-	JRadioButton closeExitRB = new JRadioButton();
-
-	JCheckBox askConfirmChB = new JCheckBox();
-
-	JRadioButton closeHideRB = new JRadioButton();
-
 	JLabel jLabel3 = new JLabel();
 
 	ButtonGroup lfGroup = new ButtonGroup();
@@ -88,8 +78,6 @@ public class PreferencesDialog extends JDialog {
 	JTextField browserPath = new JTextField();
 
 	JButton browseB = new JButton();
-
-	JLabel lblExit = new JLabel();
 
 	JPanel soundPanel = new JPanel();
 
@@ -241,42 +229,24 @@ public class PreferencesDialog extends JDialog {
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(minHideRB, gbc);
-		jLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
-		jLabel2.setText(Local.getString("Window close action:"));
+
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		gbc.insets = new Insets(2, 10, 0, 15);
 		gbc.anchor = GridBagConstraints.EAST;
-		GeneralPanel.add(jLabel2, gbc);
-		closeGroup.add(closeExitRB);
-		closeExitRB.setSelected(true);
-		closeExitRB.setText(Local.getString("Close and exit"));
-		closeExitRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				closeExitRB_actionPerformed(e);
-			}
-		});
+		
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 2;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(closeExitRB, gbc);
 
-		closeGroup.add(closeHideRB);
-		closeHideRB.setText(Local.getString("Hide"));
-		closeHideRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				closeHideRB_actionPerformed(e);
-			}
-		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 3;
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(closeHideRB, gbc);
 		jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
 		jLabel3.setText(Local.getString("Look and feel:"));
 		gbc = new GridBagConstraints();
@@ -396,27 +366,17 @@ public class PreferencesDialog extends JDialog {
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(firstdow, gbc);
-		lblExit.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblExit.setText(Local.getString("Exit") + ":");
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 15;
 		gbc.insets = new Insets(2, 10, 10, 15);
 		gbc.anchor = GridBagConstraints.EAST;
-		GeneralPanel.add(lblExit, gbc);
-		askConfirmChB.setSelected(true);
-		askConfirmChB.setText(Local.getString("Ask confirmation"));
-		askConfirmChB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				askConfirmChB_actionPerformed(e);
-			}
-		});
+	
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 15;
 		gbc.insets = new Insets(2, 0, 10, 10);
 		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(askConfirmChB, gbc);
 
 		// Build Tab2
 		rstPanelBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
@@ -546,16 +506,7 @@ public class PreferencesDialog extends JDialog {
 		} else
 			lfJavaRB.setSelected(true);
 
-		askConfirmChB.setSelected(!Configuration.get("ASK_ON_EXIT").toString()
-				.equalsIgnoreCase("no"));
-		String onclose = Configuration.get("ON_CLOSE").toString();
-		if (onclose.equals("exit")) {
-			this.closeExitRB.setSelected(true);
-			// this.askConfirmChB.setEnabled(true);
-		} else {
-			this.closeHideRB.setSelected(true);
-			// this.askConfirmChB.setEnabled(false);
-		}
+
 
 		String onmin = Configuration.get("ON_MINIMIZE").toString();
 		this.minTaskbarRB.setSelected(true);
@@ -635,15 +586,6 @@ public class PreferencesDialog extends JDialog {
 		else
 			Configuration.put("START_MINIMIZED", "no");
 
-		if (this.askConfirmChB.isSelected())
-			Configuration.put("ASK_ON_EXIT", "yes");
-		else
-			Configuration.put("ASK_ON_EXIT", "no");
-
-		if (this.closeExitRB.isSelected())
-			Configuration.put("ON_CLOSE", "exit");
-		else
-			Configuration.put("ON_CLOSE", "minimize");
 
 		Configuration.put("ON_MINIMIZE", "normal");
 
