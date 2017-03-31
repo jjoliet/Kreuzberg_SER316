@@ -146,6 +146,17 @@ public class ProjectImpl implements Project {
         setAttr("title", title);
     }
     
+    public String getSummary() {
+        Attribute ta = _root.getAttribute("summary");
+        if (ta != null)
+            return ta.getValue();
+        return "";
+    }
+    
+    public void setSummary(String summary) {
+        setAttr("summary", summary);
+    }
+    
     private void setAttr(String name, String value) {
         Attribute a = _root.getAttribute(name);
         if (a == null) {
