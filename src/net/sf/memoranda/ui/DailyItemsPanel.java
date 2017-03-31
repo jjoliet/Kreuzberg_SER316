@@ -134,11 +134,15 @@ public class DailyItemsPanel extends JPanel {
         controlPanel.setBackground(new Color(230, 230, 230));
         controlPanel.setBorder(border2);
         controlPanel.setMinimumSize(new Dimension(20, 170));
-        controlPanel.setPreferredSize(new Dimension(205, 170));
+        /*
+         * Changed by AK 3/30/17
+         * Original: controlPanel.setPreferredSize(new Dimension(205, 170));
+         */
+        controlPanel.setPreferredSize(new Dimension(410, 170));
         //controlPanel.setMaximumSize(new Dimension(206, 170));
         //controlPanel.setSize(controlPanel.getMaximumSize());
         calendar.setFont(new java.awt.Font("Dialog", 0, 11));
-        calendar.setMinimumSize(new Dimension(0, 168));
+        calendar.setMinimumSize(new Dimension(10, 168));
         toggleToolBar.setBackground(new Color(215, 225, 250));
         toggleToolBar.setRequestFocusEnabled(false);
         toggleToolBar.setFloatable(false);
