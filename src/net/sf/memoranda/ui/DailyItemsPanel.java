@@ -138,7 +138,7 @@ public class DailyItemsPanel extends JPanel {
          * Changed by AK 3/30/17
          * Original: controlPanel.setPreferredSize(new Dimension(205, 170));
          */
-        controlPanel.setPreferredSize(new Dimension(205, 170));
+        controlPanel.setPreferredSize(new Dimension(410, 170));
         //controlPanel.setMaximumSize(new Dimension(206, 170));
         //controlPanel.setSize(controlPanel.getMaximumSize());
         calendar.setFont(new java.awt.Font("Dialog", 0, 11));

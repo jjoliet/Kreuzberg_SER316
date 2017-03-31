@@ -51,6 +51,10 @@ public class JNCalendar extends JTable {
 		getTableHeader().setReorderingAllowed(false);
 		getTableHeader().setResizingAllowed(false);
 		set(date);
+		/*
+		 * Changed by AK 3/30/17
+		 */
+		setRowHeight(40);
 
 		/* selection listeners */
 		final ListSelectionModel rowSM = getSelectionModel();

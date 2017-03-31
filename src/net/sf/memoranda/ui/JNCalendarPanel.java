@@ -160,7 +160,11 @@ public class JNCalendarPanel extends JPanel {
     dayBackB.setText("");
     dayBackB.setToolTipText(Local.getString("One day back"));
     
-    yearSpin.setPreferredSize(new Dimension(70, 20));
+    /*
+     * Changed by AK 3/30/17
+     * Original: yearSpin.setPreferredSize(new Dimension(70, 20));
+     */
+    yearSpin.setPreferredSize(new Dimension(100, 35));
     yearSpin.setRequestFocusEnabled(false);
         yearSpin.setEditor(yearSpinner);
     navbPanel.setMinimumSize(new Dimension(202, 30));
@@ -185,7 +189,11 @@ public class JNCalendarPanel extends JPanel {
     mntyPanel.add(monthsCB, BorderLayout.CENTER);
     mntyPanel.add(yearSpin,  BorderLayout.EAST);
     this.add(jnCalendarPanel,  BorderLayout.CENTER);
-    jnCalendar.getTableHeader().setPreferredSize(new Dimension(200, 15));
+    /*
+     * Changed by AK 3/30/17
+     * original: jnCalendar.getTableHeader().setPreferredSize(new Dimension(200, 15));
+     */
+    jnCalendar.getTableHeader().setPreferredSize(new Dimension(200, 30));
     jnCalendarPanel.add(jnCalendar.getTableHeader(), BorderLayout.NORTH);
     jnCalendarPanel.add(jnCalendar, BorderLayout.CENTER);
     jnCalendar.addSelectionListener(new ActionListener()  {
