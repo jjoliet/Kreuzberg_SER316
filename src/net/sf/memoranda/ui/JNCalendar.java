@@ -36,6 +36,7 @@ public class JNCalendar extends JTable {
 	CalendarDate startPeriod = null;
 	CalendarDate endPeriod = null;
 	public JNCalendarCellRenderer renderer = new JNCalendarCellRenderer();
+	
 
 	public JNCalendar() {
 		this(CurrentDate.get());
@@ -52,7 +53,7 @@ public class JNCalendar extends JTable {
 		getTableHeader().setResizingAllowed(false);
 		set(date);
 		/*
-		 * Changed by AK 3/30/17
+		 * Added by AK 3/30/17
 		 */
 		setRowHeight(40);
 
@@ -189,6 +190,7 @@ public class JNCalendar extends JTable {
 			firstDay = 6;
 		daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
+	
 
 	/*$Id: JNCalendar.java,v 1.8 2004/11/05 07:38:10 pbielen Exp $*/
 public class JNCalendarModel extends AbstractTableModel {

@@ -62,6 +62,7 @@ public class JNCalendarPanel extends JPanel {
   JSpinner.NumberEditor yearSpinner = new JSpinner.NumberEditor(yearSpin, "####");
 
   boolean ignoreChange = false;
+  
 
   private Vector selectionListeners = new Vector();
 

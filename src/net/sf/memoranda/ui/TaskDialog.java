@@ -422,7 +422,11 @@ public class TaskDialog extends JDialog {
 
     void setStartDateB_actionPerformed(ActionEvent e) {
         startCalFrame.setLocation(setStartDateB.getLocation());
-        startCalFrame.setSize(200, 200);
+        /*
+         * Changed by AK 3/30/17
+         * original: startCalFrame.setSize(200, 200);
+         */
+        startCalFrame.setSize(250, 350);
         this.getLayeredPane().add(startCalFrame);
         startCalFrame.show();
 
@@ -430,7 +434,11 @@ public class TaskDialog extends JDialog {
 
     void setEndDateB_actionPerformed(ActionEvent e) {
         endCalFrame.setLocation(setEndDateB.getLocation());
-        endCalFrame.setSize(200, 200);
+        /*
+         * Changed by AK 3/30/17
+         * original: endCalFrame.setSize(200, 200);
+         */
+        endCalFrame.setSize(250, 350);
         this.getLayeredPane().add(endCalFrame);
         endCalFrame.show();
     }
