@@ -426,7 +426,7 @@ public class TaskDialog extends JDialog {
          * Changed by AK 3/30/17
          * original: startCalFrame.setSize(200, 200);
          */
-        startCalFrame.setSize(250, 350);
+        startCalFrame.setSize(250, 360);
         this.getLayeredPane().add(startCalFrame);
         startCalFrame.show();
 
@@ -438,7 +438,7 @@ public class TaskDialog extends JDialog {
          * Changed by AK 3/30/17
          * original: endCalFrame.setSize(200, 200);
          */
-        endCalFrame.setSize(250, 350);
+        endCalFrame.setSize(250, 360);
         this.getLayeredPane().add(endCalFrame);
         endCalFrame.show();
     }
