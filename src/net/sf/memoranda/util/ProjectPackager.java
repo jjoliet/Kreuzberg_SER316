@@ -54,7 +54,7 @@ public class ProjectPackager {
             
             PackDirectory(prDir.getPath(), prDir, zip);
             zip.putNextEntry(new ZipEntry("__PROJECT_INFO__"));
-            String prInfo = prj.getID() + "\n" + prj.getTitle() + "\n" + prj.getStartDate().toString() + "\n";
+            String prInfo = prj.getID() + "\n" + prj.getTitle() + "\n" + prj.getSummary() + "\n" + prj.getStartDate().toString() + "\n";
             if (prj.getEndDate() != null)
                 prInfo += prj.getEndDate().toString();
             zip.write(prInfo.getBytes("UTF-8"));
@@ -74,6 +74,7 @@ public class ProjectPackager {
             BufferedReader in = new BufferedReader(new InputStreamReader(zip.getInputStream(info), "UTF-8"));
             String pId = in.readLine();
             String pTitle = in.readLine();
+            String pSummary = in.readLine();
             String pStartD = in.readLine();
             String pEndD = in.readLine();
             in.close();
@@ -90,7 +91,7 @@ public class ProjectPackager {
                 }	
                 ProjectManager.removeProject(pId);
             }
-            Project prj = ProjectManager.createProject(pId, pTitle, new CalendarDate(pStartD), null);
+            Project prj = ProjectManager.createProject(pId, pTitle, pSummary, new CalendarDate(pStartD), null);
             if (pEndD != null)
                 prj.setEndDate(new CalendarDate(pEndD));
             //File prDir = new File(JN_DOCPATH + prj.getID());

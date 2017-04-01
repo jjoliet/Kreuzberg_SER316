@@ -38,6 +38,9 @@ public interface Project {
     String getTitle();
     void setTitle(String title);
     
+    String getSummary();
+    void setSummary(String summary);
+    
     void setDescription(String description);
     String getDescription();
     
