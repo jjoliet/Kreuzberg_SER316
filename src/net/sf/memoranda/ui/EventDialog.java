@@ -25,6 +25,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
@@ -475,7 +476,12 @@ public class EventDialog extends JDialog implements WindowListener {
     }
 
     void okB_actionPerformed(ActionEvent e) {
-        this.dispose();
+    	if(textField.getText().isEmpty()){
+    		JOptionPane.showMessageDialog(null,"Error: Please enter an identifier in the text area.",
+    		"Error", JOptionPane.WARNING_MESSAGE);
+    	}else{
+    		this.dispose();
+    	}
     }
 
     void cancelB_actionPerformed(ActionEvent e) {

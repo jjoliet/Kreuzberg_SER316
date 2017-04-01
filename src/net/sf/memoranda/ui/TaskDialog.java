@@ -10,6 +10,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
@@ -41,7 +44,7 @@ import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Local;
 
 /*$Id: TaskDialog.java,v 1.25 2005/12/01 08:12:26 alexeya Exp $*/
-public class TaskDialog extends JDialog {
+public class TaskDialog extends JDialog implements WindowListener{
     JPanel mPanel = new JPanel(new BorderLayout());
     JPanel areaPanel = new JPanel(new BorderLayout());
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -399,8 +402,14 @@ public class TaskDialog extends JDialog {
 	}
 	
     void okB_actionPerformed(ActionEvent e) {
-	CANCELLED = false;
-        this.dispose();
+    	if(todoField.getText().isEmpty()){
+    		CANCELLED = true;
+    		JOptionPane.showMessageDialog(null,"Error: Please enter a task in the \"To Do\" area",
+    		"Error", JOptionPane.WARNING_MESSAGE);
+    	}else{
+    		CANCELLED = false;
+    		this.dispose();
+    	}
     }
 
     void cancelB_actionPerformed(ActionEvent e) {
@@ -447,5 +456,22 @@ public class TaskDialog extends JDialog {
     	((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.eventsPanel.newEventB_actionPerformed(e, 
 			this.todoField.getText(), (Date)startDate.getModel().getValue(),(Date)endDate.getModel().getValue());
     }
+
+	public void windowActivated(WindowEvent e) {}
+
+	public void windowClosed(WindowEvent e) {}
+
+	public void windowClosing(WindowEvent e) {
+		CANCELLED = true;
+        this.dispose();
+	}
+
+	public void windowDeactivated(WindowEvent e) {}
+
+	public void windowDeiconified(WindowEvent e) {}
+
+	public void windowIconified(WindowEvent e) {}
+
+	public void windowOpened(WindowEvent e) {}
 
 }
