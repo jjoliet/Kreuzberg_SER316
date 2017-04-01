@@ -58,6 +58,8 @@ public class AgendaGenerator {
 			s += "<br>" + Local.getString("Total progress") + ": " + k + "%";        	
 		}
 		s += "</td></tr></table>\n";
+		
+		s += p.getSummary() + "<br>\n";
 
 		Vector tasks = (Vector) tl.getActiveSubTasks(null,date);        
 		if (tasks.size() == 0) {
