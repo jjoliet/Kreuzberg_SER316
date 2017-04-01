@@ -485,7 +485,11 @@ public class EventDialog extends JDialog implements WindowListener {
 
     void setStartDateB_actionPerformed(ActionEvent e) {
         //startCalFrame.setLocation(setStartDateB.getLocation());
-        startCalFrame.setSize(200, 190);
+        /*
+         * Changed by AK 4/1/17
+         * Original: startCalFrame.setSize(200, 190);
+         */
+    	startCalFrame.setSize(250, 350);
         startCalFrame.setTitle(Local.getString("Start date"));
         this.getLayeredPane().add(startCalFrame);
         startCalFrame.show();
@@ -493,7 +497,11 @@ public class EventDialog extends JDialog implements WindowListener {
 
     void setEndDateB_actionPerformed(ActionEvent e) {
         //endCalFrame.setLocation(setEndDateB.getLocation());
-        endCalFrame.setSize(200, 190);
+        /*
+         * Changed by AK 4/1/17
+         * Original: endCalFrame.setSize(200, 190);
+         */
+    	endCalFrame.setSize(250, 350);
         endCalFrame.setTitle(Local.getString("End date"));
         this.getLayeredPane().add(endCalFrame);
         endCalFrame.show();

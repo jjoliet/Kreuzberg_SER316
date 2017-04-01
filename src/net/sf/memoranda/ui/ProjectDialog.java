@@ -290,8 +290,12 @@ public class ProjectDialog extends JDialog {
     void sdButton_actionPerformed(ActionEvent e) {
         //startCalFrame.setLocation(sdButton.getLocation());
         startCalFrame.setLocation(0, 0);
-        startCalFrame.setSize((this.getContentPane().getWidth() / 2), 
-            this.getContentPane().getHeight());
+        /*
+         * Changed by AK 4/1/17
+         * Original: startCalFrame.setSize((this.getContentPane().getWidth() / 2), 
+         *   this.getContentPane().getHeight());
+         */
+        startCalFrame.setSize(250, 350);
         this.getLayeredPane().add(startCalFrame);
         startCalFrame.setTitle(Local.getString("Start date"));
         startCalFrame.show();
