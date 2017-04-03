@@ -268,6 +268,11 @@ public class ProjectDialog extends JDialog {
         gbc = new GridBagConstraints();
         gbc.gridx = 0; gbc.gridy = 1;
         gbc.insets = new Insets(5, 5, 5, 5);
+        /*
+         * Added by AK 4/1/17
+         * This centerPanel size is needed so the calendarFrame appears properly.
+         */
+        centerPanel.setPreferredSize(new Dimension(400, 300));
         getContentPane().add(centerPanel, gbc);
         
         gbc = new GridBagConstraints();
@@ -314,8 +319,12 @@ public class ProjectDialog extends JDialog {
     void sdButton_actionPerformed(ActionEvent e) {
         //startCalFrame.setLocation(sdButton.getLocation());
         startCalFrame.setLocation(0, 0);
-        startCalFrame.setSize((this.getContentPane().getWidth() / 2), 
-            this.getContentPane().getHeight());
+        /*
+         * Changed by AK 4/1/17
+         * Original: startCalFrame.setSize((this.getContentPane().getWidth() / 2), 
+         *   this.getContentPane().getHeight());
+         */
+        startCalFrame.setSize(250, 360);
         this.getLayeredPane().add(startCalFrame);
         startCalFrame.setTitle(Local.getString("Start date"));
         startCalFrame.show();
@@ -323,8 +332,12 @@ public class ProjectDialog extends JDialog {
     
     void edButton_actionPerformed(ActionEvent e) {
         endCalFrame.setLocation((this.getContentPane().getWidth() / 2),0);
-        endCalFrame.setSize((this.getContentPane().getWidth() / 2), 
-            this.getContentPane().getHeight());
+        /*
+         * Changed by AK 4/1/17
+         * Orginal: endCalFrame.setSize((this.getContentPane().getWidth() / 2), 
+         *  this.getContentPane().getHeight());
+         */
+        endCalFrame.setSize(250, 360);
         this.getLayeredPane().add(endCalFrame);
         endCalFrame.setTitle(Local.getString("End date"));
         endCalFrame.show();
@@ -334,7 +347,7 @@ public class ProjectDialog extends JDialog {
         ProjectDialog dlg = new ProjectDialog(null, Local.getString("New project"));
         
         Dimension dlgSize = dlg.getSize();
-        //dlg.setSize(dlgSize);
+        //dlg.setSize(dlgSize);       
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
         dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
