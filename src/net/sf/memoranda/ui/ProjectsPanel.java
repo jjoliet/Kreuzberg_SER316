@@ -72,9 +72,9 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 	JMenuItem ppNewProject = new JMenuItem();
 	JMenuItem ppProperties = new JMenuItem();
 	JMenuItem ppDeleteProject = new JMenuItem();
-	JMenuItem ppOpenProject = new JMenuItem();	
+	//JMenuItem ppOpenProject = new JMenuItem();	
 	JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
-	JButton ppOpenB = new JButton();
+	//JButton ppOpenB = new JButton();
 	ProjectsTablePanel prjTablePanel = new ProjectsTablePanel();
 
 	public Action newProjectAction =
@@ -88,8 +88,10 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 			ppNewProject_actionPerformed(e);
 		}
 	};
-
-	
+	private final JButton ppOpenProjectB = new JButton("Open Project");
+	private final JButton ppDeleteProjectB = new JButton("Delete Project");
+	private final JButton ppPropertiesB = new JButton("Project Properties");
+	private final JButton ppNewProjectB = new JButton("New Project");
 	public ProjectsPanel() {
 		try {
 			jbInit();
@@ -124,7 +126,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		toggleButton.setMargin(new Insets(0, 0, 0, 0));
 		buttonsPanel.setMinimumSize(new Dimension(70, 22));
 		buttonsPanel.setOpaque(false);
-		buttonsPanel.setPreferredSize(new Dimension(80, 22));
+		buttonsPanel.setPreferredSize(null);//(new Dimension(80, 22));
 		buttonsPanel.setRequestFocusEnabled(false);
 		buttonsPanel.setLayout(flowLayout1);
 		toolbarPanel.setBackground(SystemColor.textHighlight);
@@ -153,41 +155,41 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		ppNewProject.setFont(new java.awt.Font("Dialog", 1, 11));
 		ppNewProject.setAction(newProjectAction);
 
-		ppProperties.setFont(new java.awt.Font("Dialog", 1, 11));
-		ppProperties.setText(Local.getString("Project properties"));
-		ppProperties.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ppProperties_actionPerformed(e);
-			}
-		});
+		//ppProperties.setFont(new java.awt.Font("Dialog", 1, 11));
+		//ppProperties.setText(Local.getString("Project properties"));
+		//ppProperties.addActionListener(new java.awt.event.ActionListener() {
+			//public void actionPerformed(ActionEvent e) {
+				//ppProperties_actionPerformed(e);
+			//}
+		//});
 		ppProperties.setIcon(
 			new ImageIcon(
 				net.sf.memoranda.ui.AppFrame.class.getResource(
 					"resources/icons/editproject.png")));
 		ppProperties.setEnabled(false);
-		ppDeleteProject.setFont(new java.awt.Font("Dialog", 1, 11));
-		ppDeleteProject.setText(Local.getString("Delete project"));
-		ppDeleteProject.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ppDeleteProject_actionPerformed(e);
-			}
-		});
+		//ppDeleteProject.setFont(new java.awt.Font("Dialog", 1, 11));
+		//ppDeleteProject.setText(Local.getString("Delete project"));
+		//ppDeleteProject.addActionListener(new java.awt.event.ActionListener() {
+			//public void actionPerformed(ActionEvent e) {
+				//ppDeleteProject_actionPerformed(e);
+			//}
+		//});
 		ppDeleteProject.setIcon(
 			new ImageIcon(
 				net.sf.memoranda.ui.AppFrame.class.getResource(
 					"resources/icons/removeproject.png")));
 		ppDeleteProject.setEnabled(false);
 
-		ppOpenProject.setFont(new java.awt.Font("Dialog", 1, 11));
+		//ppOpenProject.setFont(new java.awt.Font("Dialog", 1, 11));
 
-		ppOpenProject.setText(" " + Local.getString("Open project"));
+		//ppOpenProject.setText(" " + Local.getString("Open project"));
 
-		ppOpenProject.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ppOpenProject_actionPerformed(e);
-			}
-		});
-		ppOpenProject.setEnabled(false);
+		//ppOpenProject.addActionListener(new java.awt.event.ActionListener() {
+			//public void actionPerformed(ActionEvent e) {
+				//ppOpenProject_actionPerformed(e);
+			//}
+		//});
+		//ppOpenProject.setEnabled(false);//to gray button
 
 		ppShowActiveOnlyChB.setFont(new java.awt.Font("Dialog", 1, 11));
 		ppShowActiveOnlyChB.setText(
@@ -205,7 +207,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		ppShowActiveOnlyChB_actionPerformed(null);
 
 		projectsPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));
-		ppOpenB.setMaximumSize(new Dimension(34, 20));
+		/**ppOpenB.setMaximumSize(new Dimension(34, 20));
 		ppOpenB.setMinimumSize(new Dimension(24, 10));
 		ppOpenB.setOpaque(false);
 		ppOpenB.setPreferredSize(new Dimension(24, 20));
@@ -221,22 +223,55 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 			new ImageIcon(
 				net.sf.memoranda.ui.AppFrame.class.getResource(
 					"resources/icons/ppopen.png")));
-		buttonsPanel.add(ppOpenB, null);
+		buttonsPanel.add(ppOpenB, null);//summons button*/
 		buttonsPanel.add(component1, null);
 		this.add(topBar, BorderLayout.NORTH);
 		this.add(prjTablePanel, BorderLayout.CENTER);
 		topBar.add(toolbarPanel, null);
 		toolbarPanel.add(buttonsPanel, BorderLayout.EAST);
+		ppOpenProjectB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ppOpenProject_actionPerformed(e);//
+			}
+		});
+		ppNewProjectB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProjectDialog.newProject();
+				prjTablePanel.updateUI();
+			
+			}
+		});
+		
+		buttonsPanel.add(ppNewProjectB);
+
+		
+		buttonsPanel.add(ppOpenProjectB);
+		ppDeleteProjectB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ppDeleteProject_actionPerformed(e);
+			}
+		});
+		
+		buttonsPanel.add(ppDeleteProjectB);
+		ppPropertiesB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ppProperties_actionPerformed(e);
+			}
+		});
+		
+		buttonsPanel.add(ppPropertiesB);
+		
+		
 		buttonsPanel.add(toggleButton, null);
 		toolbarPanel.add(curProjectTitle, BorderLayout.CENTER);
-		projectsPPMenu.add(ppOpenProject);
-		projectsPPMenu.addSeparator();
-		projectsPPMenu.add(ppNewProject);
-		projectsPPMenu.add(ppDeleteProject);
-		projectsPPMenu.addSeparator();
-		projectsPPMenu.add(ppProperties);
-		projectsPPMenu.addSeparator();
-		projectsPPMenu.add(ppShowActiveOnlyChB);
+		//projectsPPMenu.add(ppOpenProject);
+		//projectsPPMenu.addSeparator();
+		//projectsPPMenu.add(ppNewProject);
+		//projectsPPMenu.add(ppDeleteProject);
+		//projectsPPMenu.addSeparator();
+		//projectsPPMenu.add(ppProperties);
+		//projectsPPMenu.addSeparator();
+		//projectsPPMenu.add(ppShowActiveOnlyChB);
 		CurrentProject.addProjectListener(new ProjectListener() {
 			public void projectChange(
 				Project p,
@@ -269,9 +304,9 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 							ProjectsTablePanel.PROJECT_ID)
 						.toString()
 						.equals(CurrentProject.get().getID());
-				ppDeleteProject.setEnabled(enabled);
-				ppOpenProject.setEnabled(enabled);				
-				ppProperties.setEnabled(true);
+				ppDeleteProjectB.setEnabled(enabled);//ppOpenProject.setEnabled(enabled);//to gray button later
+				ppOpenProjectB.setEnabled(enabled);//ppOpenProject.setEnabled(enabled);//to gray button later			
+				ppPropertiesB.setEnabled(true); //ppProperties.setEnabled(true); //to gray button later
 			}
 		});
 		prjTablePanel.projectsTable.setToolTipText(
@@ -328,19 +363,19 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		expListeners.add(al);
 	}
 
-	void ppOpenB_actionPerformed(ActionEvent e) {
+	/**void ppOpenB_actionPerformed(ActionEvent e) {
 		projectsPPMenu.show(
 			buttonsPanel,
 			(int) (ppOpenB.getLocation().getX() + 24)
 				- projectsPPMenu.getWidth(),
 			(int) ppOpenB.getLocation().getY() + 24);
-	}
+	}*/
 
 	void ppOpenProject_actionPerformed(ActionEvent e) {
-		CurrentProject.set(prjTablePanel.getSelectedProject());
+		CurrentProject.set(prjTablePanel.getSelectedProject());//broken line
 		prjTablePanel.updateUI();
 		ppDeleteProject.setEnabled(false);
-		ppOpenProject.setEnabled(false);
+		ppOpenProjectB.setEnabled(false);
 	}
 
 	void ppNewProject_actionPerformed(ActionEvent e) {
@@ -451,9 +486,9 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 	}
 
 	void setMenuEnabled(boolean enabled) {
-		ppDeleteProject.setEnabled(enabled);
-		ppOpenProject.setEnabled(enabled);
-		ppProperties.setEnabled(enabled);		
+		ppDeleteProjectB.setEnabled(enabled);
+		ppOpenProjectB.setEnabled(enabled);
+		ppPropertiesB.setEnabled(enabled);		
 	}
 
 }
