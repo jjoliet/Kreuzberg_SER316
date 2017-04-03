@@ -1,5 +1,4 @@
 package net.sf.memoranda.ui;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -192,20 +191,38 @@ public class AgendaPanel extends JPanel {
 					}else if (d.startsWith("memoranda:exportstickerst")) {
 						 /*  Falta agregar el exportar sticker mientras tanto..*/
 						 final JFrame parent = new JFrame();
+						 String name = JOptionPane.showInputDialog(parent,Local.getString("Enter file name to be exported"),null);
+						 new ExportSticker(name).export("txt");
+						 //JOptionPane.showMessageDialog(null,name);
+					}
+					/*{
+						 /*  Falta agregar el exportar sticker mientras tanto..
+						 final JFrame parent = new JFrame();
 						 String name = JOptionPane.showInputDialog(parent,Local.getString("Ingrese nombre de archivo a exportar"),null);
 						 new ExportSticker(name).export("txt");
 						 //JOptionPane.showMessageDialog(null,name);
-					}else if (d.startsWith("memoranda:exportstickersh")) {
+					}*/else if (d.startsWith("memoranda:exportstickersh")) {
 						 /*  Falta agregar el exportar sticker mientras tanto..*/
+						 final JFrame parent = new JFrame();
+						 String name = JOptionPane.showInputDialog(parent,Local.getString("Enter file name to be exported"),null);
+						 new ExportSticker(name).export("html");
+						 //JOptionPane.showMessageDialog(null,name);
+					}
+					/*{
+						 /*  Falta agregar el exportar sticker mientras tanto..
 						 final JFrame parent = new JFrame();
 						 String name = JOptionPane.showInputDialog(parent,Local.getString("Ingrese nombre de archivo a exportar"),null);
 						 new ExportSticker(name).export("html");
 						 //JOptionPane.showMessageDialog(null,name);
-					}else if (d.startsWith("memoranda:importstickers")) {
+					}*/else if (d.startsWith("memoranda:importstickers")) {
+						final JFrame parent = new JFrame();
+						String name = JOptionPane.showInputDialog(parent,Local.getString("Enter file name to be imported"),null);
+						new ImportSticker(name).import_file();
+					}/*{
 						final JFrame parent = new JFrame();
 						String name = JOptionPane.showInputDialog(parent,Local.getString("Ingrese nombre de archivo a importar"),null);
 						new ImportSticker(name).import_file();
-					}
+					}*/
 				}
 			}
 		});
