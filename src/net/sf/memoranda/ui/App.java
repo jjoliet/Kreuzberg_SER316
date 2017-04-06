@@ -138,10 +138,12 @@ public class App {
 
 	}
 
-	public static void closeWindow() {
+	public static void minimizeWindow() {
 		if (frame == null)
 			return;
-		frame.dispose();
+		frame.setVisible(true);
+		frame.setExtendedState(JFrame.ICONIFIED);
+	
 	}
 
 	/**
