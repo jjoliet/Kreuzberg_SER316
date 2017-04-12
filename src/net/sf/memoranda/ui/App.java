@@ -138,12 +138,18 @@ public class App {
 
 	}
 
+	/**
+	Method: minimizeWindow
+	Inputs: void
+	Returns: void
+
+	Description: indirectly called by event handler to minimize ui frame to taskbar
+	*/
 	public static void minimizeWindow() {
 		if (frame == null)
 			return;
 		frame.setVisible(true);
 		frame.setExtendedState(JFrame.ICONIFIED);
-	
 	}
 
 	/**
