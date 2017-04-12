@@ -654,9 +654,16 @@ public class AppFrame extends JFrame {
         System.exit(0);
     }
 
+	/**
+	Method: doMinimize
+	Inputs: void
+	Returns: void
+
+	Description: directly called by event handler to minimize ui - notifies exitListeners of "exit" first
+	*/
     public void doMinimize() {
         exitNotify();
-        App.closeWindow();
+        App.minimizeWindow();
     }
 
     //Help | About action performed
