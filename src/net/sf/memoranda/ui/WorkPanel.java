@@ -18,6 +18,7 @@ import javax.swing.border.Border;
 
 import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.Local;
+import java.awt.event.ActionListener;
 
 /**
  * 
@@ -40,6 +41,7 @@ public class WorkPanel extends JPanel {
 	public JButton filesB = new JButton();
 	JButton currentB = null;
 	Border border1;
+	private final JButton logsB = new JButton("Logs");
 
 	public WorkPanel() {
 		try {
@@ -118,6 +120,31 @@ public class WorkPanel extends JPanel {
 					"resources/icons/events.png")));
 		eventsB.setOpaque(false);
 		eventsB.setMargin(new Insets(0, 0, 0, 0));
+		
+		
+//from here
+		logsB.setBackground(Color.white);
+		logsB.setMaximumSize(new Dimension(60, 80));
+		logsB.setMinimumSize(new Dimension(30, 30));
+
+		logsB.setFont(new java.awt.Font("Dialog", 1, 10));
+		logsB.setPreferredSize(new Dimension(50, 50));
+		logsB.setBorderPainted(false);
+		logsB.setContentAreaFilled(false);
+		logsB.setFocusPainted(false);
+		logsB.setHorizontalTextPosition(SwingConstants.CENTER);
+		logsB.setText("Logs");
+		logsB.setVerticalAlignment(SwingConstants.TOP);
+		logsB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		
+		logsB.setIcon(
+			new ImageIcon(
+				net.sf.memoranda.ui.AppFrame.class.getResource(
+					"resources/icons/events.png")));
+		logsB.setOpaque(false);
+		logsB.setMargin(new Insets(0, 0, 0, 0));
+		//to here
+		
 		//eventsB.setSelected(true);
 
 		tasksB.setSelected(true);
@@ -211,6 +238,16 @@ public class WorkPanel extends JPanel {
 		currentB.setOpaque(true);
 
 		toolBar.setBorder(null);
+		logsB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cardLayout1.show(panel, "DAILYITEMS");
+				dailyItemsPanel.selectPanel("LOGS");
+				setCurrentButton(logsB);
+				Context.put("CURRENT_PANEL", "LOGS");
+			}
+		});
+		
+		toolBar.add(logsB);
 		panel.setBorder(null);
 		dailyItemsPanel.setBorder(null);
 		filesPanel.setBorder(null);
