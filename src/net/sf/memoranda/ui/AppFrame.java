@@ -237,8 +237,6 @@ public class AppFrame extends JFrame {
 
     JMenu jMenuInsertSpecial = new JMenu();
     
-    JMenu jMenuHelp = new JMenu();
-    
     JMenuItem jMenuHelpGuide = new JMenuItem();
     JMenuItem jMenuHelpWeb = new JMenuItem();
     JMenuItem jMenuHelpBug = new JMenuItem();
@@ -274,39 +272,7 @@ public class AppFrame extends JFrame {
                 doExit();
             }
         });
-        jMenuHelp.setText(Local.getString("Help"));
-        
-        jMenuHelpGuide.setText(Local.getString("Online user's guide"));
-        jMenuHelpGuide.setIcon(new ImageIcon(AppFrame.class.getResource(
-                "resources/icons/help.png")));
-        jMenuHelpGuide.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jMenuHelpGuide_actionPerformed(e);
-            }
-        });
-        
-        jMenuHelpWeb.setText(Local.getString("Memoranda web site"));
-        jMenuHelpWeb.setIcon(new ImageIcon(AppFrame.class.getResource(
-                "resources/icons/web.png")));
-        jMenuHelpWeb.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jMenuHelpWeb_actionPerformed(e);
-            }
-        });
-        
-        jMenuHelpBug.setText(Local.getString("Report a bug"));
-        jMenuHelpBug.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jMenuHelpBug_actionPerformed(e);
-            }
-        });        
-        
-        jMenuHelpAbout.setText(Local.getString("About Memoranda"));
-        jMenuHelpAbout.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jMenuHelpAbout_actionPerformed(e);
-            }
-        });
+
         //jButton3.setIcon(image3);
         jButton3.setToolTipText(Local.getString("Help"));
         splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -462,18 +428,11 @@ public class AppFrame extends JFrame {
         jMenuFile.addSeparator();
         jMenuFile.add(jMenuFileExit);
         
-        jMenuHelp.add(jMenuHelpGuide);
-        jMenuHelp.add(jMenuHelpWeb);
-        jMenuHelp.add(jMenuHelpBug);
-        jMenuHelp.addSeparator();
-        jMenuHelp.add(jMenuHelpAbout);
-        
         menuBar.add(jMenuFile);
         menuBar.add(jMenuEdit);
         menuBar.add(jMenuInsert);
         menuBar.add(jMenuFormat);
         menuBar.add(jMenuGo);
-        menuBar.add(jMenuHelp);
         this.setJMenuBar(menuBar);
         //contentPane.add(toolBar, BorderLayout.NORTH);
         contentPane.add(statusBar, BorderLayout.SOUTH);
