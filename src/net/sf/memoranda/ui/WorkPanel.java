@@ -41,7 +41,7 @@ public class WorkPanel extends JPanel {
 	public JButton filesB = new JButton();
 	JButton currentB = null;
 	Border border1;
-	private final JButton logsB = new JButton("Logs");
+	private final JButton logsB = new JButton("Logs"); //new logs button
 
 	public WorkPanel() {
 		try {
@@ -122,7 +122,7 @@ public class WorkPanel extends JPanel {
 		eventsB.setMargin(new Insets(0, 0, 0, 0));
 		
 		
-//from here
+		//new logs button
 		logsB.setBackground(Color.white);
 		logsB.setMaximumSize(new Dimension(60, 80));
 		logsB.setMinimumSize(new Dimension(30, 30));
@@ -143,7 +143,7 @@ public class WorkPanel extends JPanel {
 					"resources/icons/events.png")));
 		logsB.setOpaque(false);
 		logsB.setMargin(new Insets(0, 0, 0, 0));
-		//to here
+
 		
 		//eventsB.setSelected(true);
 
@@ -236,7 +236,8 @@ public class WorkPanel extends JPanel {
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
 		currentB.setOpaque(true);
-
+		
+		//set to logs panel
 		toolBar.setBorder(null);
 		logsB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

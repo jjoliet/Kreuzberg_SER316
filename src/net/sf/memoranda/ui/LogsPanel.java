@@ -35,7 +35,7 @@ import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Util;
 
-/*$Id: EventsPanel.java,v 1.25 2005/02/19 10:06:25 rawsushi Exp $*/
+/*$Id: LogsPanel.java, 4/13/17 $*/
 public class LogsPanel extends JPanel {
     BorderLayout borderLayout1 = new BorderLayout();
     JButton historyBackB = new JButton();
@@ -83,7 +83,8 @@ public class LogsPanel extends JPanel {
         historyForwardB.setMinimumSize(new Dimension(24, 24));
         historyForwardB.setMaximumSize(new Dimension(24, 24));
         historyForwardB.setText("");
-
+        
+        //sets icon for new log
         newLogB.setIcon(
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/event_new.png")));
         newLogB.setEnabled(true);
@@ -93,6 +94,7 @@ public class LogsPanel extends JPanel {
         newLogB.setRequestFocusEnabled(false);
         newLogB.setPreferredSize(new Dimension(24, 24));
         newLogB.setFocusable(false);
+        //brings up new log dialog, new dialog window will be created
         newLogB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 newEventB_actionPerformed(e);
@@ -102,11 +104,14 @@ public class LogsPanel extends JPanel {
 
         editLogB.setBorderPainted(false);
         editLogB.setFocusable(false);
+        //edit log button, new dialog window to be created
         editLogB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 editEventB_actionPerformed(e);
             }
         });
+        
+        //edit log icon
         editLogB.setPreferredSize(new Dimension(24, 24));
         editLogB.setRequestFocusEnabled(false);
         editLogB.setToolTipText(Local.getString("Edit log"));
@@ -118,11 +123,13 @@ public class LogsPanel extends JPanel {
 
         removeLogB.setBorderPainted(false);
         removeLogB.setFocusable(false);
+        //remove log button, new dialog window to be created
         removeLogB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 removeEventB_actionPerformed(e);
             }
         });
+        //remove log button icon
         removeLogB.setPreferredSize(new Dimension(24, 24));
         removeLogB.setRequestFocusEnabled(false);
         removeLogB.setToolTipText(Local.getString("Remove log"));
@@ -211,7 +218,7 @@ public class LogsPanel extends JPanel {
         eventPPMenu.add(ppNewEvent);
         eventPPMenu.add(ppRemoveEvent);
 		
-		// remove events using the DEL key
+		// remove logs using the DEL key
 		logsTable.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e){
 				if(logsTable.getSelectedRows().length>0 

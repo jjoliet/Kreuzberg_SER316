@@ -26,7 +26,7 @@ import net.sf.memoranda.util.Local;
 /**
  *
  */
-/*$Id: EventsTable.java,v 1.6 2004/10/11 08:48:20 alexeya Exp $*/
+/*$Id: LogsTable.java,4/13/17 $*/
 public class LogsTable extends JTable {
 
     public static final int EVENT = 100;
