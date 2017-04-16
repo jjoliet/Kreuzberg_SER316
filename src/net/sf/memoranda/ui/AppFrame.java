@@ -137,9 +137,21 @@ public class AppFrame extends JFrame {
                         p1Import_actionPerformed(e);
                 }
         };
+        
+      //This action can be taken out when the panel is implemented
+        public Action newLOCAction =
+                new AbstractAction(Local.getString("New Lines of Code")) {
+                public void actionPerformed(ActionEvent e) {
+                        LOCDialog lcd = new LOCDialog(App.getFrame(), "Lines of Code");
+                        lcd.setVisible(true);
+                }
+        };
     
     JMenuItem jMenuFileNewPrj = new JMenuItem();
-        JMenuItem jMenuFileNewNote = new JMenuItem(workPanel.dailyItemsPanel.editorPanel.newAction);
+    JMenuItem jMenuFileNewNote = new JMenuItem(workPanel.dailyItemsPanel.editorPanel.newAction);
+    //Also Remove the menu item from here
+    JMenuItem jMenuFileNewLOC = new JMenuItem(newLOCAction);
+    //..To here
     JMenuItem jMenuFilePackPrj = new JMenuItem(prjPackAction);
     JMenuItem jMenuFileUnpackPrj = new JMenuItem(prjUnpackAction);
     JMenuItem jMenuFileExportPrj = new JMenuItem(exportNotesAction);
@@ -412,7 +424,10 @@ public class AppFrame extends JFrame {
 
         toolBar.add(jButton3);
         jMenuFile.add(jMenuFileNewPrj);
-                jMenuFile.add(jMenuFileNewNote);
+        jMenuFile.add(jMenuFileNewNote);
+     	//Delete this when Panel is implemented
+        jMenuFile.add(jMenuFileNewLOC);
+        //to here
         jMenuFile.addSeparator();
         jMenuFile.add(jMenuFilePackPrj);
         jMenuFile.add(jMenuFileUnpackPrj);
