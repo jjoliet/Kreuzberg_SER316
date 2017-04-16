@@ -31,6 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.text.html.HTMLDocument;
 
@@ -90,6 +91,10 @@ public class AppFrame extends JFrame {
     HTMLEditor editor = workPanel.dailyItemsPanel.editorPanel.editor;
 
     static Vector exitListeners = new Vector();
+    
+    public final int delay = 1000 * 60 * 3; //3 minutes
+    private Timer autosave = null;
+    private ActionListener autosaver = null;
 
     public Action prjPackAction = new AbstractAction("Pack current project") {
         public void actionPerformed(ActionEvent e) {
@@ -251,7 +256,41 @@ public class AppFrame extends JFrame {
         catch (Exception e) {
             new ExceptionDialog(e);
         }
+        
+        initTimer();
     }
+    
+    
+    public Timer getAutoSaveTimer(){
+    	return autosave;
+    }
+    
+    /**
+	Method: initTimer
+	Inputs: void
+	Returns: void
+
+	Description:
+	Initializes repeating swing Timer with an actionlistener that notifies exit listeners.
+	exit listeners save when notified.
+	*/
+    private void initTimer(){
+    	
+    	autosave = new Timer(delay, new ActionListener() {
+
+    		public void actionPerformed(ActionEvent e) {
+    			Collection listeners = getExitListeners();
+    			System.out.println("Autosave timer triggered");
+    			for (int i = 0; i < listeners.size(); i++){
+    	            ((ActionListener) exitListeners.get(i)).actionPerformed(null);
+    	        }
+    		}
+    	});
+
+        autosave.setRepeats(true);
+        autosave.start();
+    }
+    
     //Component initialization
     private void jbInit() throws Exception {
         this.setIconImage(new ImageIcon(AppFrame.class.getResource(
