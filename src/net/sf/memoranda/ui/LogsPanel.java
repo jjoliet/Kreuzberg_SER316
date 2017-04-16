@@ -231,57 +231,13 @@ public class LogsPanel extends JPanel {
     }
 
     void editEventB_actionPerformed(ActionEvent e) {
-        EventDialog dlg = new EventDialog(App.getFrame(), Local.getString("Log"));
+        LogsDialog dlg = new LogsDialog(App.getFrame(), Local.getString("Log"));
         net.sf.memoranda.Event ev =
             (net.sf.memoranda.Event) logsTable.getModel().getValueAt(
                 logsTable.getSelectedRow(),
                 LogsTable.EVENT);
-        
-        dlg.timeSpin.getModel().setValue(ev.getTime());
-        /*if (new CalendarDate(ev.getTime()).equals(CalendarDate.today())) 
-            ((SpinnerDateModel)dlg.timeSpin.getModel()).setStart(new Date());
-        else
-        ((SpinnerDateModel)dlg.timeSpin.getModel()).setStart(CalendarDate.today().getDate());
-        ((SpinnerDateModel)dlg.timeSpin.getModel()).setEnd(CalendarDate.tomorrow().getDate());*/    
-        dlg.textField.setText(ev.getText());
-        int rep = ev.getRepeat();
-        if (rep > 0) {
-            dlg.startDate.getModel().setValue(ev.getStartDate().getDate());
-            if (rep == EventsManager.REPEAT_DAILY) {
-                dlg.dailyRepeatRB.setSelected(true);
-                dlg.dailyRepeatRB_actionPerformed(null);
-                dlg.daySpin.setValue(new Integer(ev.getPeriod()));
-            }
-            else if (rep == EventsManager.REPEAT_WEEKLY) {
-                dlg.weeklyRepeatRB.setSelected(true);
-                dlg.weeklyRepeatRB_actionPerformed(null);
-		int d = ev.getPeriod() - 1;
-		if(Configuration.get("FIRST_DAY_OF_WEEK").equals("mon")) {
-		    d--;
-		    if(d<0) d=6;
-		}
-                dlg.weekdaysCB.setSelectedIndex(d);
-            }
-            else if (rep == EventsManager.REPEAT_MONTHLY) {
-                dlg.monthlyRepeatRB.setSelected(true);
-                dlg.monthlyRepeatRB_actionPerformed(null);
-                dlg.dayOfMonthSpin.setValue(new Integer(ev.getPeriod()));
-            }
-	    else if (rep == EventsManager.REPEAT_YEARLY) {
-		dlg.yearlyRepeatRB.setSelected(true);
-		dlg.yearlyRepeatRB_actionPerformed(null);
-		dlg.dayOfMonthSpin.setValue(new Integer(ev.getPeriod()));
-	    }
-        if (ev.getEndDate() != null) {
-           dlg.endDate.getModel().setValue(ev.getEndDate().getDate());
-           dlg.enableEndDateCB.setSelected(true);
-           dlg.enableEndDateCB_actionPerformed(null);
-        }
-		if(ev.getWorkingDays()) {
-			dlg.workingDaysOnlyCB.setSelected(true);
-		}
-		
-        }
+           
+        dlg.textFieldTitle.setText(ev.getText());
 
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
@@ -289,25 +245,9 @@ public class LogsPanel extends JPanel {
         dlg.setVisible(true);
         if (dlg.CANCELLED)
             return;
-        EventsManager.removeEvent(ev);
+      
+        String text = dlg.textFieldTitle.getText();
         
-		Calendar calendar = new GregorianCalendar(Local.getCurrentLocale()); //Fix deprecated methods to get hours
-		//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-		calendar.setTime(((Date)dlg.timeSpin.getModel().getValue()));//Fix deprecated methods to get hours
-		//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-		int hh = calendar.get(Calendar.HOUR_OF_DAY);//Fix deprecated methods to get hours
-		//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-		int mm = calendar.get(Calendar.MINUTE);//Fix deprecated methods to get hours
-		//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-        
-        //int hh = ((Date) dlg.timeSpin.getModel().getValue()).getHours();
-        //int mm = ((Date) dlg.timeSpin.getModel().getValue()).getMinutes();
-        String text = dlg.textField.getText();
-        if (dlg.noRepeatRB.isSelected())
-   	    EventsManager.createEvent(CurrentDate.get(), hh, mm, text);
-        else {
-	    updateEvents(dlg,hh,mm,text);
-	}    
 	saveEvents();
     }
 
@@ -321,42 +261,28 @@ public class LogsPanel extends JPanel {
     }
     
     void newEventB_actionPerformed(ActionEvent e, String tasktext, Date startDate, Date endDate) {
-    	EventDialog dlg = new EventDialog(App.getFrame(), Local.getString("New Log"));
+    	LogsDialog dlg = new LogsDialog(App.getFrame(), Local.getString("New Log"));
     	Dimension frmSize = App.getFrame().getSize();
     	Point loc = App.getFrame().getLocation();
     	if (tasktext != null) {
-    		dlg.textField.setText(tasktext);
+    		dlg.textFieldTitle.setText(tasktext);
     	}
-		dlg.startDate.getModel().setValue(startDate);
-		dlg.endDate.getModel().setValue(endDate);
-		dlg.timeSpin.getModel().setValue(startDate);
 
     	dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x, (frmSize.height - dlg.getSize().height) / 2 + loc.y);
-    	dlg.setEventDate(startDate);
 		dlg.setVisible(true);
     	if (dlg.CANCELLED)
     		return;
-    	Calendar calendar = new GregorianCalendar(Local.getCurrentLocale()); //Fix deprecated methods to get hours
-    	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-    	calendar.setTime(((Date)dlg.timeSpin.getModel().getValue()));//Fix deprecated methods to get hours
-    	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-    	int hh = calendar.get(Calendar.HOUR_OF_DAY);//Fix deprecated methods to get hours
-    	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-    	int mm = calendar.get(Calendar.MINUTE);//Fix deprecated methods to get hours
-    	//by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
     	
-    	//int hh = ((Date) dlg.timeSpin.getModel().getValue()).getHours();
-    	//int mm = ((Date) dlg.timeSpin.getModel().getValue()).getMinutes();
-    	String text = dlg.textField.getText();
-		
-		CalendarDate eventCalendarDate = new CalendarDate(dlg.getEventDate());
-		
-    	if (dlg.noRepeatRB.isSelected())
-    		EventsManager.createEvent(eventCalendarDate, hh, mm, text);
-    	else {
-    		updateEvents(dlg,hh,mm,text);
-    	}
-    	saveEvents();
+    	//storing input user puts into text field for defects - tstockt
+    	String textTitle = dlg.textFieldTitle.getText();
+    	String textNumber = dlg.textFieldNumber.getText();
+    	String textDate = dlg.textFieldDate.getText();
+    	String textType = dlg.textFieldType.getText();
+    	String textInject = dlg.textFieldInject.getText();
+    	String textReason = dlg.textFieldReason.getText();
+    	String textFixTime = dlg.textFieldFixTime.getText();
+    	String textFixingDef = dlg.textFieldFixingDef.getText();
+    	String textDesc = dlg.textFieldDesc.getText();
     }
 
     private void saveEvents() {
@@ -365,37 +291,6 @@ public class LogsPanel extends JPanel {
         EventsScheduler.init();
         parentPanel.calendar.jnCalendar.updateUI();
         parentPanel.updateIndicators();
-    }
-
-    private void updateEvents(EventDialog dlg, int hh, int mm, String text) {
-	int rtype;
-        int period;
-        CalendarDate sd = new CalendarDate((Date) dlg.startDate.getModel().getValue());
-        CalendarDate ed = null;
-        if (dlg.enableEndDateCB.isSelected())
-            ed = new CalendarDate((Date) dlg.endDate.getModel().getValue());
-        if (dlg.dailyRepeatRB.isSelected()) {
-            rtype = EventsManager.REPEAT_DAILY;
-            period = ((Integer) dlg.daySpin.getModel().getValue()).intValue();
-        }
-        else if (dlg.weeklyRepeatRB.isSelected()) {
-            rtype = EventsManager.REPEAT_WEEKLY;
-            period = dlg.weekdaysCB.getSelectedIndex() + 1;
-	    if (Configuration.get("FIRST_DAY_OF_WEEK").equals("mon")) {
-		if(period==7) period=1;
-		else period++;
-	    }
-        }
-	else if (dlg.yearlyRepeatRB.isSelected()) {
-	    rtype = EventsManager.REPEAT_YEARLY;
-	    period = sd.getCalendar().get(Calendar.DAY_OF_YEAR);
-	    if((sd.getYear() % 4) == 0 && sd.getCalendar().get(Calendar.DAY_OF_YEAR) > 60) period--;
-	}
-        else {
-            rtype = EventsManager.REPEAT_MONTHLY;
-            period = ((Integer) dlg.dayOfMonthSpin.getModel().getValue()).intValue();
-        }
-        EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, text, dlg.workingDaysOnlyCB.isSelected());
     }
 
     void removeEventB_actionPerformed(ActionEvent e) {
@@ -427,12 +322,7 @@ public class LogsPanel extends JPanel {
         EventsManager.removeEvent(ev);
 		}
         logsTable.getSelectionModel().clearSelection();
-/*        CurrentStorage.get().storeEventsManager();
-        eventsTable.refresh();
-        EventsScheduler.init();
-        parentPanel.calendar.jnCalendar.updateUI();
-        parentPanel.updateIndicators();
-*/ saveEvents();  
+        saveEvents();  
   }
 
     class PopupListener extends MouseAdapter {
