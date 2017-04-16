@@ -94,7 +94,6 @@ public class AppFrame extends JFrame {
     
     public final int delay = 1000 * 60 * 3; //3 minutes
     private Timer autosave = null;
-    private ActionListener autosaver = null;
 
     public Action prjPackAction = new AbstractAction("Pack current project") {
         public void actionPerformed(ActionEvent e) {

@@ -1,4 +1,4 @@
-package net.sf.memoranda.ui;
+package net.sf.memoranda.test;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.sun.prism.impl.ps.BaseShaderContext.SpecialShaderType;
 
+import net.sf.memoranda.ui.App;
 import net.sf.memoranda.util.Configuration;
 
 public class AutosaveTest {
