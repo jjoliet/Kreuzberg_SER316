@@ -636,16 +636,19 @@ public class AppFrame extends JFrame {
          dlg.setVisible(true);
     }
 
-    protected void processWindowEvent(WindowEvent e) {
-        if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-            doExit();
-        }
-        else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
-            doMinimize();
-        }
-        else
-            super.processWindowEvent(e);
-    }
+	protected void processWindowEvent(WindowEvent e) {
+		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+			doExit();
+		}
+		else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
+			doMinimize();
+		}
+		else if((e.getID() == WindowEvent.WINDOW_DEICONIFIED)) {
+			this.setExtendedState(Frame.MAXIMIZED_BOTH);
+		}
+		else
+			super.processWindowEvent(e);
+	}
 
     public static void addExitListener(ActionListener al) {
         exitListeners.add(al);
