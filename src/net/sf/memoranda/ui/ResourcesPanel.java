@@ -5,20 +5,27 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -30,8 +37,6 @@ import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.MimeType;
 import net.sf.memoranda.util.MimeTypesList;
 import net.sf.memoranda.util.Util;
-
-import java.io.*;
 
 /*$Id: ResourcesPanel.java,v 1.13 2007/03/20 08:22:41 alexeya Exp $*/
 public class ResourcesPanel extends JPanel {
@@ -47,6 +52,11 @@ public class ResourcesPanel extends JPanel {
   JMenuItem ppRemoveRes = new JMenuItem();
   JMenuItem ppNewRes = new JMenuItem();
   JMenuItem ppRefresh = new JMenuItem();
+  /*
+   * Added by AK 4/13/17
+   */
+  JLabel previewLabel = new JLabel();
+  JSplitPane previewPane = new JSplitPane();
 
     public ResourcesPanel() {
         try {
@@ -74,7 +84,7 @@ public class ResourcesPanel extends JPanel {
             }
         });
         newResB.setBorderPainted(false);
-        resourcesTable.setMaximumSize(new Dimension(32767, 32767));
+        resourcesTable.setMaximumSize(new Dimension(32767, 32767));        
         resourcesTable.setRowHeight(24);
         removeResB.setBorderPainted(false);
         removeResB.setFocusable(false);
@@ -93,12 +103,19 @@ public class ResourcesPanel extends JPanel {
                 net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/removeresource.png")));
         removeResB.setEnabled(false);
         scrollPane.getViewport().setBackground(Color.white);
+        /*
+         * Added by AK 4/13/17
+         */
+        previewLabel.setMinimumSize(new Dimension(75,75));
+        scrollPane.setMinimumSize(new Dimension(150, 150));
+        
         toolBar.addSeparator(new Dimension(8, 24));
         toolBar.addSeparator(new Dimension(8, 24));
 
 
         PopupListener ppListener = new PopupListener();
         scrollPane.addMouseListener(ppListener);
+        scrollPane.getViewport().add(resourcesTable, null);
         resourcesTable.addMouseListener(ppListener);
 
         resourcesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -162,12 +179,24 @@ public class ResourcesPanel extends JPanel {
     ppRefresh.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/refreshres.png")));
 
     toolBar.add(newResB, null);
-        toolBar.add(removeResB, null);
-        toolBar.addSeparator();
-        toolBar.add(refreshB, null);
-        this.add(scrollPane, BorderLayout.CENTER);
-        scrollPane.getViewport().add(resourcesTable, null);
-        this.add(toolBar, BorderLayout.NORTH);
+    toolBar.add(removeResB, null);
+    toolBar.addSeparator();
+    toolBar.add(refreshB, null);
+    /*
+     * Added by AK 4/13/17
+     * old: this.add(scrollPane, BorderLayout.SOUTH);
+     */
+    previewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    previewLabel.setVerticalAlignment(SwingConstants.CENTER);
+    previewLabel.setText("Preview Label");
+    previewPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+    previewPane.setTopComponent(scrollPane);
+    previewPane.setBottomComponent(previewLabel);
+    previewPane.setContinuousLayout(true);
+    this.add(previewPane, BorderLayout.CENTER);
+    
+    
+    this.add(toolBar, BorderLayout.NORTH);
     resPPMenu.add(ppRun);
     resPPMenu.addSeparator();
     resPPMenu.add(ppNewRes);
@@ -353,6 +382,29 @@ public class ResourcesPanel extends JPanel {
                     runApp(path);
                 else
                     runBrowser((String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 0));
+            }
+            /*
+             * Added by AK 4/13/17
+             */
+            else if ((e.getClickCount() == 1) && (resourcesTable.getSelectedRow() > -1)) {
+            	String path = (String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 3);
+            	System.out.println("Single click at: " + path);
+            	if (path.length() > 0) {
+            		try {
+            			if (ImageIO.read(new File(path)) == null) {
+            				System.out.println("Not an Image");
+            				previewLabel.setText("Preview Label");
+            				previewLabel.setIcon(null);
+            			} else {
+            				ImageIcon previewImage = new ImageIcon(path);
+            				previewLabel.setText(null);
+            				previewLabel.setIcon(previewImage);
+            			}
+            		} catch (Exception ex) {
+            			System.out.println(ex.getClass().getSimpleName());
+            			System.out.println(ex.getMessage());
+            		}
+            	}
             }
             //editTaskB_actionPerformed(null);
         }
