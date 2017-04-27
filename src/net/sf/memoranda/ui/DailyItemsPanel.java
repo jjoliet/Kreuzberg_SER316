@@ -66,6 +66,10 @@ public class DailyItemsPanel extends JPanel {
     EventsPanel eventsPanel = new EventsPanel(this);
     AgendaPanel agendaPanel = new AgendaPanel(this);
     LogsPanel logsPanel = new LogsPanel(this); //for logs panel
+    /*
+     * Added by AK 4/25/17
+     */
+    PhasePanel phasePanel = new PhasePanel(this);
     ImageIcon expIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/exp_left.png"));
     ImageIcon bookmarkIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/star8.png"));
@@ -212,6 +216,10 @@ public class DailyItemsPanel extends JPanel {
         editorsPanel.add(tasksPanel, "TASKS");
         editorsPanel.add(editorPanel, "NOTES");
         editorsPanel.add(logsPanel, "LOGS");//for logs panel
+        /*
+         * Added by AK 4/26/17
+         */
+        editorsPanel.add(phasePanel, "PHASE");
         
         splitPane.add(mainPanel, JSplitPane.RIGHT);
         splitPane.add(controlPanel, JSplitPane.LEFT);

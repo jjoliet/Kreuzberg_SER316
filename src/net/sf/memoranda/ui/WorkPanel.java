@@ -42,6 +42,10 @@ public class WorkPanel extends JPanel {
 	JButton currentB = null;
 	Border border1;
 	private final JButton logsB = new JButton("Logs"); //new logs button
+	/*
+	 * Added by AK 4/26/17
+	 */
+	public JButton phaseB = new JButton();
 
 	public WorkPanel() {
 		try {
@@ -146,6 +150,32 @@ public class WorkPanel extends JPanel {
 
 		
 		//eventsB.setSelected(true);
+		/*
+		 * Added by AK 4/26/17
+		 */
+		phaseB.setFont(new java.awt.Font("Dialog", 1, 10));
+		phaseB.setMargin(new Insets(0, 0, 0, 0));
+		phaseB.setIcon(
+				new ImageIcon(
+					net.sf.memoranda.ui.AppFrame.class.getResource(
+						"resources/icons/events.png")));
+		phaseB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		phaseB.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				phaseB_actionPerformed(e);
+			}
+		});
+		phaseB.setVerticalAlignment(SwingConstants.TOP);
+		phaseB.setText(Local.getString("Tasks"));
+		phaseB.setHorizontalTextPosition(SwingConstants.CENTER);
+		phaseB.setFocusPainted(false);
+		phaseB.setBorderPainted(false);
+		phaseB.setContentAreaFilled(false);
+		phaseB.setPreferredSize(new Dimension(50, 50));
+		phaseB.setMinimumSize(new Dimension(30, 30));
+		phaseB.setOpaque(false);
+		phaseB.setMaximumSize(new Dimension(60, 80));
+		phaseB.setBackground(Color.white);
 
 		tasksB.setSelected(true);
 		tasksB.setFont(new java.awt.Font("Dialog", 1, 10));
@@ -247,8 +277,12 @@ public class WorkPanel extends JPanel {
 				Context.put("CURRENT_PANEL", "LOGS");
 			}
 		});
-		
+
 		toolBar.add(logsB);
+		/*
+		 * Added by AK 4/26/17
+		 */
+		toolBar.add(phaseB);
 		panel.setBorder(null);
 		dailyItemsPanel.setBorder(null);
 		filesPanel.setBorder(null);
@@ -287,6 +321,15 @@ public class WorkPanel extends JPanel {
 		dailyItemsPanel.selectPanel("TASKS");
 		setCurrentButton(tasksB);
 		Context.put("CURRENT_PANEL", "TASKS");
+	}
+	/*
+	 * Added by AK 4/26/17
+	 */
+	public void phaseB_actionPerformed(ActionEvent e) {
+		cardLayout1.show(panel, "DAILYITEMS");
+		dailyItemsPanel.selectPanel("PHASE");
+		setCurrentButton(phaseB);
+		Context.put("CURRENT_PANEL", "PHASE");
 	}
 
 	public void eventsB_actionPerformed(ActionEvent e) {
