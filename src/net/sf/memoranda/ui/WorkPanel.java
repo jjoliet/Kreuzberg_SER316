@@ -166,7 +166,7 @@ public class WorkPanel extends JPanel {
 			}
 		});
 		phaseB.setVerticalAlignment(SwingConstants.TOP);
-		phaseB.setText(Local.getString("Tasks"));
+		phaseB.setText(Local.getString("Phase"));
 		phaseB.setHorizontalTextPosition(SwingConstants.CENTER);
 		phaseB.setFocusPainted(false);
 		phaseB.setBorderPainted(false);
