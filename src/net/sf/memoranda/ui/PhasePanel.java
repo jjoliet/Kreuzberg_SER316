@@ -22,6 +22,7 @@ public class PhasePanel extends JPanel {
 	JButton newPhaseB = new JButton();
 	JButton phaseRemoveB = new JButton();
 	JScrollPane scrollPane = new JScrollPane();
+	PhaseTable phaseTable = new PhaseTable();
 	DailyItemsPanel parentPanel = null;
 	
 	public PhasePanel(DailyItemsPanel _parentPanel) {
@@ -55,6 +56,10 @@ public class PhasePanel extends JPanel {
 		this.add(phaseToolBar, BorderLayout.NORTH);
 		
 		scrollPane.getViewport().setBackground(Color.white);
+		
+		phaseTable.setMaximumSize(new Dimension(32767, 32767));
+		phaseTable.setRowHeight(24);
+		scrollPane.getViewport().add(phaseTable, null);
 		
 		this.add(scrollPane, BorderLayout.CENTER);
 		
