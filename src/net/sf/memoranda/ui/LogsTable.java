@@ -51,8 +51,8 @@ public class LogsTable extends JTable {
 
     public void initTable(CalendarDate d) {
         events = (Vector)EventsManager.getEventsForDate(d);
-        getColumnModel().getColumn(0).setPreferredWidth(60);
-        getColumnModel().getColumn(0).setMaxWidth(60);
+       // getColumnModel().getColumn(0).setPreferredWidth(60);//only needed to change columns width
+        //getColumnModel().getColumn(0).setMaxWidth(60);
 	clearSelection();
         updateUI();
     }
@@ -94,11 +94,18 @@ public class LogsTable extends JTable {
     }
 
     class EventsTableModel extends AbstractTableModel {
-
+    	
+    	//this sets title for columns
         String[] columnNames = {
-            //Local.getString("Task name"),
-            Local.getString("Type"),
-                Local.getString("Name")
+            Local.getString("Log Title"),
+                Local.getString("Defect No."),
+                	Local.getString("Date"),
+                		Local.getString("Type"),
+                			Local.getString("Inject"),
+                				Local.getString("Reason"),
+                					Local.getString("Fix Time"),
+                						Local.getString("Fixing Defect"),
+                							Local.getString("Description")
         };
 
         EventsTableModel() {
@@ -106,7 +113,7 @@ public class LogsTable extends JTable {
         }
 
         public int getColumnCount() {
-            return 2;
+            return columnNames.length; //lists all columns from top ^
         }
 
         public int getRowCount() {
