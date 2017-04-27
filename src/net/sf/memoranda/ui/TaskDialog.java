@@ -42,6 +42,7 @@ import javax.swing.JCheckBox;
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Local;
+import javax.swing.DefaultComboBoxModel;
 
 /*$Id: TaskDialog.java,v 1.25 2005/12/01 08:12:26 alexeya Exp $*/
 public class TaskDialog extends JDialog implements WindowListener{
@@ -60,7 +61,7 @@ public class TaskDialog extends JDialog implements WindowListener{
     Border border4;
 //    Border border5;
 //    Border border6;
-    JPanel jPanel2 = new JPanel(new GridLayout(3, 2));
+    JPanel jPanel2 = new JPanel(new GridLayout(4, 2));
     JTextField todoField = new JTextField();
     
     // added by rawsushi
@@ -109,6 +110,10 @@ public class TaskDialog extends JDialog implements WindowListener{
 	CalendarDate startDateMax = CurrentProject.get().getEndDate();
 	CalendarDate endDateMin = startDateMin;
 	CalendarDate endDateMax = startDateMax;
+	private final JPanel categoryPanel = new JPanel();
+	private final JComboBox phaseComboBox = new JComboBox();
+	private final JLabel phaseLabel = new JLabel("PSP Phase");
+	private final JPanel emptyPanel = new JPanel();
     
     public TaskDialog(Frame frame, String title) {
         super(frame, title, true);
@@ -365,6 +370,15 @@ public class TaskDialog extends JDialog implements WindowListener{
         jPanel2.add(jPanelProgress);
         
         priorityCB.setSelectedItem(Local.getString("Normal"));
+        
+        jPanel2.add(emptyPanel);
+        jPanel2.add(categoryPanel);
+        categoryPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+        
+        categoryPanel.add(phaseLabel);
+        phaseComboBox.setModel(new DefaultComboBoxModel(new String[] {"None", "Planning", "Design", "Code", "Code Review", "Compile", "Test", "Postmortem"}));
+        
+        categoryPanel.add(phaseComboBox);
         startCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (ignoreStartChanged)
