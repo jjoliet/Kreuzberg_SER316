@@ -46,6 +46,7 @@ import net.sf.memoranda.date.DateListener;
 import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.*;
+import javax.swing.JRadioButton;
 
 /*$Id: ProjectsPanel.java,v 1.14 2005/01/04 09:59:22 pbielen Exp $*/
 public class ProjectsPanel extends JPanel implements ExpandablePanel {
@@ -76,6 +77,11 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 	JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
 	//JButton ppOpenB = new JButton();
 	ProjectsTablePanel prjTablePanel = new ProjectsTablePanel();
+	
+//	public ProjectsPanel() {
+//		super();
+//	
+//	}
 
 	public Action newProjectAction =
 		new AbstractAction(
@@ -92,12 +98,17 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 	private final JButton ppDeleteProjectB = new JButton("Delete Project");
 	private final JButton ppPropertiesB = new JButton("Project Properties");
 	private final JButton ppNewProjectB = new JButton("New Project");
+	private final JButton btnActiveProjects = new JButton("Active Projects");
 	public ProjectsPanel() {
 		try {
 			jbInit();
 		} catch (Exception ex) {
 			new ExceptionDialog(ex);
-		}
+		}//this makes inactive projects show up when program restarts
+		prjTablePanel.setShowActiveOnly(false);
+		Context.put(
+				"SHOW_ACTIVE_PROJECTS_ONLY",
+				new Boolean(false));
 	}
 
 	void jbInit() throws Exception {
@@ -191,20 +202,20 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		//});
 		//ppOpenProject.setEnabled(false);//to gray button
 
-		ppShowActiveOnlyChB.setFont(new java.awt.Font("Dialog", 1, 11));
-		ppShowActiveOnlyChB.setText(
-			Local.getString("Show active projects only"));
-		ppShowActiveOnlyChB
-			.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ppShowActiveOnlyChB_actionPerformed(e);
-			}
-		});
+//		ppShowActiveOnlyChB.setFont(new java.awt.Font("Dialog", 1, 11));
+//		ppShowActiveOnlyChB.setText(
+//			Local.getString("Show active projects only"));
+//		ppShowActiveOnlyChB
+//			.addActionListener(new java.awt.event.ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				ppShowActiveOnlyChB_actionPerformed(e);
+//			}
+//		});
 		boolean isShao =
 			(Context.get("SHOW_ACTIVE_PROJECTS_ONLY") != null)
 				&& (Context.get("SHOW_ACTIVE_PROJECTS_ONLY").equals("true"));
 		ppShowActiveOnlyChB.setSelected(isShao);
-		ppShowActiveOnlyChB_actionPerformed(null);
+//		ppShowActiveOnlyChB_actionPerformed(null);
 
 		projectsPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));
 		/**ppOpenB.setMaximumSize(new Dimension(34, 20));
@@ -258,8 +269,32 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 				ppProperties_actionPerformed(e);
 			}
 		});
-		
+		//active inactive button
 		buttonsPanel.add(ppPropertiesB);
+		btnActiveProjects.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(arg0.getActionCommand());
+				if(arg0.getActionCommand().toString().compareTo("Show Active") == 0
+						|| arg0.getActionCommand().toString().compareTo("Active Projects") == 0) {
+					prjTablePanel.setShowActiveOnly(true);//(ppShowActiveOnlyChB.isSelected());
+					Context.put(
+							"SHOW_ACTIVE_PROJECTS_ONLY",
+							new Boolean(true));//(ppShowActiveOnlyChB.isSelected()));
+					btnActiveProjects.setText("Show All");
+				}
+				else
+				{
+					prjTablePanel.setShowActiveOnly(false);//(ppShowActiveOnlyChB.isSelected());
+					Context.put(
+							"SHOW_ACTIVE_PROJECTS_ONLY",
+							new Boolean(false));
+					btnActiveProjects.setText("Show Active");
+				}
+
+			}
+		});
+		
+		buttonsPanel.add(btnActiveProjects);
 		
 		
 		buttonsPanel.add(toggleButton, null);
@@ -322,6 +357,9 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 				public void	keyReleased(KeyEvent e){}
 				public void keyTyped(KeyEvent e){} 
 			});
+			
+			
+	
 	}
 
 	class PopupListener extends MouseAdapter {
@@ -477,13 +515,13 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		 * if (dlg.freezeChB.isSelected()) prj.freeze(); else
 		 */
 	}
-
-	void ppShowActiveOnlyChB_actionPerformed(ActionEvent e) {
-		prjTablePanel.setShowActiveOnly(ppShowActiveOnlyChB.isSelected());
-		Context.put(
-			"SHOW_ACTIVE_PROJECTS_ONLY",
-			new Boolean(ppShowActiveOnlyChB.isSelected()));
-	}
+	//input for radiobtn
+//	void ppShowActiveOnlyChB_actionPerformed(ActionEvent e) {
+//		prjTablePanel.setShowActiveOnly(ppShowActiveOnlyChB.isSelected());
+//		Context.put(
+//			"SHOW_ACTIVE_PROJECTS_ONLY",
+//			new Boolean(ppShowActiveOnlyChB.isSelected()));
+//	}
 
 	void setMenuEnabled(boolean enabled) {
 		ppDeleteProjectB.setEnabled(enabled);
