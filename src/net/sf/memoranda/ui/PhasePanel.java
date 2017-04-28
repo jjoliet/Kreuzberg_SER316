@@ -24,6 +24,7 @@ import javax.swing.MenuElement;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.EventsManager;
 import net.sf.memoranda.EventsScheduler;
 import net.sf.memoranda.History;
@@ -283,6 +284,8 @@ public class PhasePanel extends JPanel {
 		dlg.setVisible(true);
     	if (dlg.CANCELLED)
     		return;
+    	CurrentProject.getTimeKeeperList().addTimeKeeper(dlg.textFieldProject.getText(), dlg.textFieldPSPPhase.getText(), Integer.parseInt(dlg.textFieldHours.getText()));
+    	saveEvents();
 	}
 	
 	private void saveEvents() {

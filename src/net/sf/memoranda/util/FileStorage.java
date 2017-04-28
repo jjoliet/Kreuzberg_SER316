@@ -32,7 +32,6 @@ import net.sf.memoranda.TaskList;
 import net.sf.memoranda.TaskListImpl;
 import net.sf.memoranda.TimeKeeperList;
 import net.sf.memoranda.TimeKeeperListImpl;
-import net.sf.memoranda.TimeKeeperManager;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.ui.ExceptionDialog;
 import net.sf.memoranda.ui.htmleditor.AltHTMLWriter;
@@ -372,7 +371,7 @@ public class FileStorage implements Storage {
     /**
      * Open TimeKeeper manager
      */
-    public void openTimeKeeperManager() {
+    /*public void openTimeKeeperManager() {
     	if (!new File(JN_DOCPATH +".timekeeper").exists()) {
     		TimeKeeperManager._doc = null;
     		return;
@@ -380,7 +379,7 @@ public class FileStorage implements Storage {
     	System.out.println(
     			"[DEBUG] Open time keeper manager: " +JN_DOCPATH + ".timekeeper");
     	TimeKeeperManager._doc = openDocument(JN_DOCPATH +".timekeeper");
-    }
+    }*/
     
     /**
      * @see net.sf.memoranda.util.Storage#storeEventsList()
@@ -395,11 +394,11 @@ public class FileStorage implements Storage {
     /**
      * Store TimeKeeper manager
      */
-    public void storeTimeKeeperManager() {
+    /*public void storeTimeKeeperManager() {
     	System.out.println(
     			"[DEBUG] Save time keeper manager: " +JN_DOCPATH +".timekeeper");
     	saveDocument(TimeKeeperManager._doc, JN_DOCPATH +".timekeeper");
-    }
+    }*/
     
     /**
      * @see net.sf.memoranda.util.Storage#openMimeTypesList()

@@ -53,7 +53,7 @@ public interface Storage {
     TimeKeeperList openTimeKeeperList(Project prj);
     void storeTimeKeeperList(TimeKeeperList tL, Project prj);
     
-    void openTimeKeeperManager();
-    void storeTimeKeeperManager();
+    //void openTimeKeeperManager();
+    //void storeTimeKeeperManager();
        
 }

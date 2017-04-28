@@ -23,7 +23,7 @@ public class PhaseTable extends JTable {
     public static final int EVENT = 100;
     public static final int EVENT_ID = 101;
 
-    Vector events = new Vector();
+    Vector timeKeepers = new Vector();
     /**
      * Constructor for PhaseTable.
      */
@@ -41,7 +41,7 @@ public class PhaseTable extends JTable {
     }
 
     public void initTable(CalendarDate d) {
-        events = (Vector)EventsManager.getEventsForDate(d);
+        timeKeepers = (Vector)EventsManager.getEventsForDate(d);
         getColumnModel().getColumn(0).setPreferredWidth(720);
         getColumnModel().getColumn(0).setMaxWidth(720);
 	clearSelection();
