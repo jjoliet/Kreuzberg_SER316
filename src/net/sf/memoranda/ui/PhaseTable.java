@@ -34,7 +34,7 @@ public class PhaseTable extends JTable {
 
     Vector events = new Vector();
     /**
-     * Constructor for EventsTable.
+     * Constructor for PhaseTable.
      */
     public PhaseTable() {
         super();
@@ -51,8 +51,8 @@ public class PhaseTable extends JTable {
 
     public void initTable(CalendarDate d) {
         events = (Vector)EventsManager.getEventsForDate(d);
-        getColumnModel().getColumn(0).setPreferredWidth(60);
-        getColumnModel().getColumn(0).setMaxWidth(60);
+        getColumnModel().getColumn(0).setPreferredWidth(720);
+        getColumnModel().getColumn(0).setMaxWidth(720);
 	clearSelection();
         updateUI();
     }
@@ -97,9 +97,9 @@ public class PhaseTable extends JTable {
 
         String[] columnNames = {
             //Local.getString("Task name"),
-            Local.getString("Time"),
             Local.getString("Phase"),
-            Local.getString("Other")
+            Local.getString("Hours"),
+            Local.getString("Project")
         };
 
         PhaseTableModel() {
@@ -107,7 +107,7 @@ public class PhaseTable extends JTable {
         }
 
         public int getColumnCount() {
-            return 3;
+            return columnNames.length;
         }
 
         public int getRowCount() {
