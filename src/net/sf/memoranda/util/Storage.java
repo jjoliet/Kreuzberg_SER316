@@ -13,6 +13,7 @@ import net.sf.memoranda.NoteList;
 import net.sf.memoranda.Project;
 import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.TaskList;
+import net.sf.memoranda.TimeKeeperList;
 /**
  * 
  */
@@ -48,5 +49,8 @@ public interface Storage {
     
     void restoreContext();
     void storeContext(); 
+    
+    TimeKeeperList openTimeKeeperList(Project prj);
+    void storeTimeKeeperList(TimeKeeperList tL, Project prj);
        
 }

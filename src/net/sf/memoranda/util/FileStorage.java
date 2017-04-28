@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
@@ -29,6 +30,8 @@ import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.ResourcesListImpl;
 import net.sf.memoranda.TaskList;
 import net.sf.memoranda.TaskListImpl;
+import net.sf.memoranda.TimeKeeperList;
+import net.sf.memoranda.TimeKeeperListImpl;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.ui.ExceptionDialog;
 import net.sf.memoranda.ui.htmleditor.AltHTMLWriter;
@@ -468,6 +471,41 @@ public class FileStorage implements Storage {
                 "Failed to store context to " + JN_DOCPATH + ".context",
                 "");
         }
+    }
+    
+    /**
+     * Method: openTimeKeeperList
+     * Input: Project
+     * Return: TimeKeeperList
+     * 
+     *  Description: Either opens or returns a .timekeeper XML file containing all phase timekeepers
+     */
+    public TimeKeeperList openTimeKeeperList(Project prj) {
+    	String fn = JN_DOCPATH + prj.getID() + File.separator + ".timekeeper";
+    	if (documentExists(fn)) {
+    		System.out.println("[DEBUG] Open timekeeper list: " +fn);
+    		return new TimeKeeperListImpl(openDocument(fn), prj);
+    	} else {
+    		System.out.println("[DEBUG] New timekeeper list created.");
+    		return new TimeKeeperListImpl(prj);
+    	}
+    }
+    
+    /**
+     * Method: storeTimeKeeperList
+     * Input: TimeKeeperList, Project
+     * Return: none
+     * 
+     * Description: Saves a list of phase time keepers to an XML file .timekeeper
+     */
+    public void storeTimeKeeperList(TimeKeeperList tL, Project prj) {
+    	System.out.println(
+    			"[DEBUG] Save timekeeper list: "
+    			+ JN_DOCPATH
+    			+ prj.getID()
+    			+ File.separator
+    			+ ".timekeeper");
+    	saveDocument(tL.getXMLContent(), JN_DOCPATH+prj.getID()+File.separator+".timekeeper");
     }
 
 }
