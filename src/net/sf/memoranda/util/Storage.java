@@ -8,6 +8,7 @@
  */
 package net.sf.memoranda.util;
 
+import net.sf.memoranda.LOCList;
 import net.sf.memoranda.Note;
 import net.sf.memoranda.NoteList;
 import net.sf.memoranda.Project;
@@ -48,5 +49,7 @@ public interface Storage {
     
     void restoreContext();
     void storeContext(); 
-       
+    //New LOC methods for storage-Implemented within FileStorage.java
+    LOCList openLOCList(Project prj);
+    void storeLOCList(LOCList ll, Project prj);
 }

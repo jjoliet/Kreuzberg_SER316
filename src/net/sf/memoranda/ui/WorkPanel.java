@@ -39,6 +39,7 @@ public class WorkPanel extends JPanel {
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
 	public JButton filesB = new JButton();
+	public JButton locB = new JButton();//New LOC Button
 	JButton currentB = null;
 	Border border1;
 	private final JButton logsB = new JButton("Logs"); //new logs button
@@ -143,6 +144,36 @@ public class WorkPanel extends JPanel {
 					"resources/icons/events.png")));
 		logsB.setOpaque(false);
 		logsB.setMargin(new Insets(0, 0, 0, 0));
+		
+		//New LOC Button
+				locB.setBackground(Color.white);
+				locB.setMaximumSize(new Dimension(60, 80));
+				locB.setMinimumSize(new Dimension(30, 30));
+
+				locB.setFont(new java.awt.Font("Dialog", 1, 10));
+				locB.setPreferredSize(new Dimension(50, 50));
+				locB.setBorderPainted(false);
+				locB.setContentAreaFilled(false);
+				locB.setFocusPainted(false);
+				locB.setHorizontalTextPosition(SwingConstants.CENTER);
+				locB.setText("LOC");
+				locB.setVerticalAlignment(SwingConstants.TOP);
+				locB.setVerticalTextPosition(SwingConstants.BOTTOM);
+				
+				locB.setIcon(
+					new ImageIcon(
+						net.sf.memoranda.ui.AppFrame.class.getResource(
+							"resources/icons/events.png")));
+				locB.setOpaque(false);
+				locB.setMargin(new Insets(0, 0, 0, 0));
+				locB.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						cardLayout1.show(panel, "DAILYITEMS");
+						dailyItemsPanel.selectPanel("LOCS");
+						setCurrentButton(locB);
+						Context.put("CURRENT_PANEL", "LOCS");
+					}
+				});
 
 		
 		//eventsB.setSelected(true);
@@ -232,6 +263,7 @@ public class WorkPanel extends JPanel {
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
+		toolBar.add(locB, null);//Add LOC Button to toolbar
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));

@@ -20,6 +20,8 @@ import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
 import net.sf.memoranda.EventsManager;
+import net.sf.memoranda.LOCList;
+import net.sf.memoranda.LOCListImpl;
 import net.sf.memoranda.Note;
 import net.sf.memoranda.NoteList;
 import net.sf.memoranda.NoteListImpl;
@@ -469,5 +471,46 @@ public class FileStorage implements Storage {
                 "");
         }
     }
+    
+    /**
+    Method: openLOCList
+    Inputs: Project
+    Returns: LOCList
+
+    Description: Opens or creates a new XML file .loclist which will store the lines of code.
+  */
+    public LOCList openLOCList(Project prj) {
+		 String fn = JN_DOCPATH + prj.getID() + File.separator + ".loclist";
+	        if (documentExists(fn)) {
+	            /*DEBUG*/
+	            System.out.println("[DEBUG] Open LOC list: " + fn);
+	            return new LOCListImpl(openDocument(fn), prj);
+	        }
+	        else {
+	            /*DEBUG*/
+	            System.out.println("[DEBUG] New LOC list created");
+	            return new LOCListImpl(prj);
+	        }
+	}
+
+    /**
+    Method: storeLOCList
+    Inputs: LOCList, Project
+    Returns: None
+
+    Description: Saves an XML File to .loclist, otherwise the file would never be fully created.
+  */
+	public void storeLOCList(LOCList ll, Project prj) {
+		System.out.println(
+	            "[DEBUG] Save LOC list: "
+	                + JN_DOCPATH
+	                + prj.getID()
+	                + File.separator
+	                + ".loclist");
+	        saveDocument(
+	            ll.getXMLContent(),
+	            JN_DOCPATH + prj.getID() + File.separator + ".loclist");
+		
+	}
 
 }

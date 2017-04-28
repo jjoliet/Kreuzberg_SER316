@@ -29,7 +29,7 @@ public class CurrentProject {
     private static NoteList _notelist = null;
     private static ResourcesList _resources = null;
     private static Vector projectListeners = new Vector();
-
+    private static LOCList _loclist = null; //NEW LOC list item in project
         
     static {
         String prjId = (String)Context.get("LAST_OPENED_PROJECT_ID");
@@ -49,7 +49,7 @@ public class CurrentProject {
             Context.put("LAST_OPENED_PROJECT_ID", _project.getID());
 			
 		}		
-		
+		_loclist = CurrentStorage.get().openLOCList(_project);//Invokes OpenLOCList method to create a .loclist file (Or open the .loclist file)
         _tasklist = CurrentStorage.get().openTaskList(_project);
         _notelist = CurrentStorage.get().openNoteList(_project);
         _resources = CurrentStorage.get().openResourcesList(_project);
@@ -63,6 +63,17 @@ public class CurrentProject {
 
     public static Project get() {
         return _project;
+    }
+   
+    /**
+    Method: getLOCList
+    Inputs: None
+    Returns: LOCList
+
+    Description: Returns a LOCList item.
+  */
+    public static LOCList getLOCList(){
+    	return _loclist;
     }
 
     public static TaskList getTaskList() {
@@ -118,6 +129,7 @@ public class CurrentProject {
         storage.storeNoteList(_notelist, _project);
         storage.storeTaskList(_tasklist, _project); 
         storage.storeResourcesList(_resources, _project);
+        storage.storeLOCList(_loclist, _project);//Stores the LOCList to the XML file.
         storage.storeProjectManager();
     }
     
@@ -126,5 +138,6 @@ public class CurrentProject {
         _tasklist = null;
         _notelist = null;
         _resources = null;
+        _loclist = null; //Frees up the loclist item
     }
 }
