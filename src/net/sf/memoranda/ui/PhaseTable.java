@@ -1,11 +1,3 @@
-/**
- * EventsTable.java
- * Created on 09.03.2003, 9:52:02 Alex
- * Package: net.sf.memoranda.ui
- *
- * @author Alex V. Alishevskikh, alex@openmechanics.net
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
- */
 package net.sf.memoranda.ui;
 
 import java.awt.Component;
@@ -26,7 +18,6 @@ import net.sf.memoranda.util.Local;
 /**
  *
  */
-/*$Id: EventsTable.java,v 1.6 2004/10/11 08:48:20 alexeya Exp $*/
 public class PhaseTable extends JTable {
 
     public static final int EVENT = 100;
