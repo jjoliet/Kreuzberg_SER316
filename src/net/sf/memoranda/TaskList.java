@@ -17,28 +17,28 @@ import net.sf.memoranda.date.CalendarDate;
 public interface TaskList {
 
 	Project getProject();
-    Task getTask(String id);
+	Task getTask(String id);
 
-    Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, String description, String parentTaskId);
+	Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, String description, String parentTaskId, String phase);
 
-    void removeTask(Task task);
+	void removeTask(Task task);
 
-    public boolean hasSubTasks(String id);
-    
+	public boolean hasSubTasks(String id);
+
 	public boolean hasParentTask(String id);
 
 	public Collection getTopLevelTasks();
-	
-    public Collection getAllSubTasks(String taskId);
-    public Collection getActiveSubTasks(String taskId,CalendarDate date);
-    
-//    public void adjustParentTasks(Task t);
-    
-    public long calculateTotalEffortFromSubTasks(Task t);
-    public CalendarDate getLatestEndDateFromSubTasks(Task t);
-    public CalendarDate getEarliestStartDateFromSubTasks(Task t);
-    public long[] calculateCompletionFromSubTasks(Task t);
 
-    nu.xom.Document getXMLContent();
+	public Collection getAllSubTasks(String taskId);
+	public Collection getActiveSubTasks(String taskId,CalendarDate date);
+
+	//    public void adjustParentTasks(Task t);
+
+	public long calculateTotalEffortFromSubTasks(Task t);
+	public CalendarDate getLatestEndDateFromSubTasks(Task t);
+	public CalendarDate getEarliestStartDateFromSubTasks(Task t);
+	public long[] calculateCompletionFromSubTasks(Task t);
+
+	nu.xom.Document getXMLContent();
 
 }
