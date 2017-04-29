@@ -43,7 +43,7 @@ public class LogsManager {
 */
 
 	
-	public static ArrayList<LogsImpl> allLogs = new ArrayList<>();
+	public static ArrayList<LogsImpl> allLogs = new ArrayList<LogsImpl>();
 	static{
 		readLogData();
 	}
@@ -61,7 +61,7 @@ public class LogsManager {
 	}
 	
 	public static ArrayList<LogsImpl> getLogs(){
-		return new ArrayList<>(allLogs);
+		return new ArrayList<LogsImpl>(allLogs);
 	}
 	
 	//we need a method to create a storing functionality 
