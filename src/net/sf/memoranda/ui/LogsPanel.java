@@ -27,6 +27,8 @@ import javax.swing.event.ListSelectionListener;
 import net.sf.memoranda.EventsManager;
 import net.sf.memoranda.EventsScheduler;
 import net.sf.memoranda.History;
+import net.sf.memoranda.LogsImpl;
+import net.sf.memoranda.LogsManager;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.date.DateListener;
@@ -228,16 +230,29 @@ public class LogsPanel extends JPanel {
 			public void	keyReleased(KeyEvent e){}
 			public void keyTyped(KeyEvent e){} 
 		});
+		
+		//going to need to add all loaded logImpls
+		for(LogsImpl log : LogsManager.getLogs()){
+			logsTable.addLogs(log);
+		}
     }
 
     void editEventB_actionPerformed(ActionEvent e) {
         LogsDialog dlg = new LogsDialog(App.getFrame(), Local.getString("Log"));
-        net.sf.memoranda.Event ev =
-            (net.sf.memoranda.Event) logsTable.getModel().getValueAt(
+        LogsImpl ev =
+            (LogsImpl) logsTable.getModel().getValueAt(
                 logsTable.getSelectedRow(),
                 LogsTable.EVENT);
            
-        dlg.textFieldTitle.setText(ev.getText());
+        dlg.textFieldTitle.setText(ev.get_textTitle());
+        dlg.textFieldNumber.setText(ev.get_textNumber());
+        dlg.textFieldDate.setText(ev.get_textDate());
+        dlg.textFieldType.setText(ev.get_textType());
+        dlg.textFieldInject.setText(ev.get_textInject());
+        dlg.textFieldReason.setText(ev.get_textReason());
+        dlg.textFieldFixTime.setText(ev.get_textFixTime());
+        dlg.textFieldFixingDef.setText(ev.get_textFixingDef());
+        dlg.textFieldDesc.setText(ev.get_textDesc());
 
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
@@ -247,6 +262,24 @@ public class LogsPanel extends JPanel {
             return;
       
         String text = dlg.textFieldTitle.getText();
+        
+        logsTable.removeLogs(logsTable.getSelectedRow());
+        LogsManager.removeLog(ev);
+        String textTitle = dlg.textFieldTitle.getText();
+    	String textNumber = dlg.textFieldNumber.getText();
+    	String textDate = dlg.textFieldDate.getText();
+    	String textType = dlg.textFieldType.getText();
+    	String textInject = dlg.textFieldInject.getText();
+    	String textReason = dlg.textFieldReason.getText();
+    	String textFixTime = dlg.textFieldFixTime.getText();
+    	String textFixingDef = dlg.textFieldFixingDef.getText();
+    	String textDesc = dlg.textFieldDesc.getText();
+    	
+    	LogsImpl logsImpl = new LogsImpl(textTitle, textNumber, textDate, textType, textInject, textReason,
+    							textFixTime, textFixingDef, textDesc);
+    	
+    	logsTable.addLogs(logsImpl);
+    	LogsManager.addLog(logsImpl);
         
 	saveEvents();
     }
@@ -283,10 +316,17 @@ public class LogsPanel extends JPanel {
     	String textFixTime = dlg.textFieldFixTime.getText();
     	String textFixingDef = dlg.textFieldFixingDef.getText();
     	String textDesc = dlg.textFieldDesc.getText();
+    	
+    	LogsImpl logsImpl = new LogsImpl(textTitle, textNumber, textDate, textType, textInject, textReason,
+    							textFixTime, textFixingDef, textDesc);
+    	
+    	logsTable.addLogs(logsImpl);
+    	LogsManager.addLog(logsImpl);
+    	saveEvents();
     }
 
     private void saveEvents() {
-	CurrentStorage.get().storeEventsManager();
+	CurrentStorage.get().storeLogsManager();
         logsTable.refresh();
         EventsScheduler.init();
         parentPanel.calendar.jnCalendar.updateUI();
@@ -295,17 +335,17 @@ public class LogsPanel extends JPanel {
 
     void removeEventB_actionPerformed(ActionEvent e) {
 		String msg;
-		net.sf.memoranda.Event ev;
+		LogsImpl ev;
 
 		if(logsTable.getSelectedRows().length > 1) 
 			msg = Local.getString("Remove") + " " + logsTable.getSelectedRows().length 
-				+ " " + Local.getString("events") + "\n" + Local.getString("Are you sure?");
+				+ " " + "logs" + "\n" + Local.getString("Are you sure?");
 		else {
-			ev = (net.sf.memoranda.Event) logsTable.getModel().getValueAt(
+			ev = (LogsImpl) logsTable.getModel().getValueAt(
                 logsTable.getSelectedRow(),
                 LogsTable.EVENT);
 			msg = Local.getString("Remove log") + "\n'" 
-				+ ev.getText() + "'\n" + Local.getString("Are you sure?");
+				+ ev.get_textTitle() + "'\n" + Local.getString("Are you sure?");
 		}
 
         int n =
@@ -316,10 +356,11 @@ public class LogsPanel extends JPanel {
                 JOptionPane.YES_NO_OPTION);
         if (n != JOptionPane.YES_OPTION) return;
 
+        int removeCounter = 0;
         for(int i=0; i< logsTable.getSelectedRows().length;i++) {
-			ev = (net.sf.memoranda.Event) logsTable.getModel().getValueAt(
-                  logsTable.getSelectedRows()[i], LogsTable.EVENT);
-        EventsManager.removeEvent(ev);
+        LogsImpl removed = logsTable.removeLogs(logsTable.getSelectedRows()[i] - removeCounter);
+        LogsManager.removeLog(removed);
+        removeCounter++;
 		}
         logsTable.getSelectionModel().clearSelection();
         saveEvents();  

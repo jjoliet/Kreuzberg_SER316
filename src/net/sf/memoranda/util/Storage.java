@@ -38,6 +38,8 @@ public interface Storage {
     void openEventsManager();
     void storeEventsManager();
     
+    public void storeLogsManager();
+    
     void openMimeTypesList();
     void storeMimeTypesList();
     

@@ -19,6 +19,7 @@ import javax.swing.table.TableCellRenderer;
 
 import net.sf.memoranda.Event;
 import net.sf.memoranda.EventsManager;
+import net.sf.memoranda.LogsImpl;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.date.DateListener;
@@ -32,7 +33,7 @@ public class LogsTable extends JTable {
     public static final int EVENT = 100;
     public static final int EVENT_ID = 101;
 
-    Vector events = new Vector();
+    Vector<LogsImpl> logs = new Vector();
     /**
      * Constructor for EventsTable.
      */
@@ -48,9 +49,21 @@ public class LogsTable extends JTable {
             }
         });
     }
+    
+    public void addLogs(LogsImpl logsImpl)
+    {
+    	logs.add(logsImpl);
+    	updateUI();
+    }
+    
+    public LogsImpl removeLogs(int index){
+    	LogsImpl removed = logs.remove(index);
+    	updateUI();
+    	return removed;
+    }
 
     public void initTable(CalendarDate d) {
-        events = (Vector)EventsManager.getEventsForDate(d);
+        //events = (Vector)EventsManager.getEventsForDate(d);
        // getColumnModel().getColumn(0).setPreferredWidth(60);//only needed to change columns width
         //getColumnModel().getColumn(0).setMaxWidth(60);
 	clearSelection();
@@ -73,11 +86,11 @@ public class LogsTable extends JTable {
                 int column) {
                 Component comp;
                 comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                Event ev = (Event)getModel().getValueAt(row, EVENT);
+                LogsImpl ev = (LogsImpl)getModel().getValueAt(row, EVENT);
                 comp.setForeground(java.awt.Color.gray);
-                if (ev.isRepeatable())
-                    comp.setFont(comp.getFont().deriveFont(Font.ITALIC));
-                if (CurrentDate.get().after(CalendarDate.today())) {
+                /*if (ev.isRepeatable())
+                    comp.setFont(comp.getFont().deriveFont(Font.ITALIC));*/
+                /*if (CurrentDate.get().after(CalendarDate.today())) {
                   comp.setForeground(java.awt.Color.black);
                 }                
                 else if (CurrentDate.get().equals(CalendarDate.today())) {
@@ -86,7 +99,7 @@ public class LogsTable extends JTable {
                     //comp.setFont(new java.awt.Font("Dialog", 1, 12));
                     comp.setFont(comp.getFont().deriveFont(Font.BOLD));
                   }
-                }
+                }*/
                 return comp;
             }
         };
@@ -119,7 +132,7 @@ public class LogsTable extends JTable {
         public int getRowCount() {
 			int i;
 			try {
-				i = events.size();
+				i = logs.size();
 			}
 			catch(NullPointerException e) {
 				i = 1;
@@ -128,14 +141,25 @@ public class LogsTable extends JTable {
         }
 
         public Object getValueAt(int row, int col) {
-           Event ev = (Event)events.get(row);
+           LogsImpl ev = logs.get(row);
            if (col == 0)
-                //return ev.getHour()+":"+ev.getMinute();
-                return ev.getTimeString();
+                return ev.get_textTitle();
            else if (col == 1)
-                return ev.getText();
-           else if (col == EVENT_ID)
-                return ev.getId();
+                return ev.get_textNumber();
+           else if (col == 2)
+                return ev.get_textDate();
+           else if (col == 3)
+        	   	return ev.get_textType();
+           else if (col == 4)
+        	   	return ev.get_textInject();
+           else if (col == 5)
+        	   	return ev.get_textReason();
+           else if (col == 6)
+        	   	return ev.get_textFixTime();
+           else if (col == 7)
+        	   	return ev.get_textFixingDef();
+           else if (col == 8)
+        	   	return ev.get_textDesc();
            else return ev;
         }
 

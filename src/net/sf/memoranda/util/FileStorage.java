@@ -22,6 +22,7 @@ import javax.swing.text.html.HTMLEditorKit;
 import net.sf.memoranda.EventsManager;
 import net.sf.memoranda.LOCList;
 import net.sf.memoranda.LOCListImpl;
+import net.sf.memoranda.LogsManager;
 import net.sf.memoranda.Note;
 import net.sf.memoranda.NoteList;
 import net.sf.memoranda.NoteListImpl;
@@ -374,6 +375,15 @@ public class FileStorage implements Storage {
         System.out.println(
             "[DEBUG] Save events manager: " + JN_DOCPATH + ".events");
         saveDocument(EventsManager._doc, JN_DOCPATH + ".events");
+    }
+    
+    public void storeLogsManager(){
+    	try {
+			LogsManager.writeLogData(JN_DOCPATH + ".logs");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     /**
      * @see net.sf.memoranda.util.Storage#openMimeTypesList()
